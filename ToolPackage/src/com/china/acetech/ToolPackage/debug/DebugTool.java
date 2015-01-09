@@ -1,4 +1,4 @@
-﻿package com.china.acetech.ToolPackage.debug;
+package com.china.acetech.ToolPackage.debug;
 
 import android.app.Activity;
 import android.util.Log;

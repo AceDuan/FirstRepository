@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="abs__background_holo_dark">#ff000000</color>
+    <color name="abs__background_holo_light">#fff3f3f3</color>
+    <item type="color" name="abs__bright_foreground_holo_dark">@color/abs__background_holo_light</item>
+    <item type="color" name="abs__bright_foreground_holo_light">@color/abs__background_holo_dark</item>
+    <color name="abs__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="abs__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <item type="color" name="abs__bright_foreground_inverse_holo_dark">@color/abs__bright_foreground_holo_light</item>
+    <item type="color" name="abs__bright_foreground_inverse_holo_light">@color/abs__bright_foreground_holo_dark</item>
+    <color name="abs__holo_blue_light">#ff33b5e5</color>
+    <color name="title_text">#ffffffff</color>
+    <color name="grass_color">#ff79bf43</color>
+    <color name="light_grey_color">#ff898989</color>
+    <color name="dark_grey">#ff3e3e3e</color>
+    <color name="lightest_gray">#ffc3c3c3</color>
+    <color name="plan_intencity_grey">#fff1f3f2</color>
+    <color name="light_grey_panel_bg">#ffebecec</color>
+    <color name="easier_color">#ffa0bb64</color>
+    <color name="easier_bold_color">#ff75a30f</color>
+    <color name="medium_color">#ff80b3cd</color>
+    <color name="medium_bold_color">#ff4c88a2</color>
+    <color name="kinda_hard_color">#ffde984d</color>
+    <color name="kinda_hard_bold_color">#ffc87216</color>
+    <color name="harder_color">#ffd87e7e</color>
+    <color name="harder_bold_color">#ffd05757</color>
+    <color name="overlay_text_color">#ff343333</color>
+    <color name="white">#ffffffff</color>
+    <color name="darkest_grey">#ff404040</color>
+    <color name="hint_foreground_light">#ff808080</color>
+    <color name="chart_weight_area_color">#fffcc9c3</color>
+    <color name="chart_weight_border_color">#fff85b4c</color>
+    <color name="chart_bmi_area_color">#ffeef2f6</color>
+    <color name="chart_bmi_border_color">#ff77818c</color>
+    <color name="chart_lean_vs_fat_area_color">#ffefffc4</color>
+    <color name="chart_lean_vs_fat_border_color">#ff85c91a</color>
+    <color name="chart_lean_area_color">#ffb8efee</color>
+    <color name="chart_lean_border_color">#ff3fb3b1</color>
+    <color name="chart_section_weight_color">#fffa796b</color>
+    <color name="chart_section_second_color">#fffedc9d</color>
+    <color name="chart_section_fat_color">#ff9ed04a</color>
+    <color name="chart_section_lean_color">#ffd9edf2</color>
+    <color name="chart_activity_column">#ff90da00</color>
+    <color name="chart_activity_goal_not_met_column">#ffdddddd</color>
+    <color name="chart_grid_line_color">#ffd2d2d2</color>
+    <color name="chart_goal_line_color">#80000000</color>
+    <color name="chart_weight_goal_border_color">#ff777777</color>
+    <color name="chart_weight_goal_annotation_color">#ffaaaaaa</color>
+    <color name="chart_time_asleep_border_color">#ff4dbfc0</color>
+    <color name="chart_times_awakened_border_color">#fff54785</color>
+    <color name="measurement_fragment_bg_color">#ffeff0f0</color>
+    <color name="sleep_tile_text_color">#ff7b2c79</color>
+    <color name="transparent">#00000000</color>
+    <color name="sync_list_header_main_color">#fff2b822</color>
+    <color name="sync_list_header_sub_color">#fff16022</color>
+    <color name="main_bg_color">#ffe9e9e9</color>
+    <color name="update_device_text_color">#ff4cbfbf</color>
+    <color name="sleep_time_in_bed_asleep_color">#ff4d638c</color>
+    <color name="sleep_time_in_bed_awake_color">#ffa66231</color>
+    <color name="sleep_awake_button_awake_shadow_color">#80ffffff</color>
+    <color name="restless_color">#ff33b9b7</color>
+    <color name="awake_color">#fff2006c</color>
+    <color name="time_asleep_color">#ff2750b2</color>
+    <color name="time_asleep_chart_bg_color">#ff9a9a9a</color>
+    <color name="teal">#ff54c2c2</color>
+    <color name="intensity_level_very_active">#ff97de16</color>
+    <color name="intensity_level_moderate">#fff9cf09</color>
+    <color name="intensity_level_light">#ffff713b</color>
+    <color name="goal_text_color">#ff676767</color>
+    <color name="goal_tile_background_color">#fff6f6f6</color>
+    <color name="greeting_error_color">#ffc4493c</color>
+    <color name="graph_interval_inactive">#ffa5a5a5</color>
+    <color name="graph_background">#ffe4e6e6</color>
+    <color name="friend_list_header_color">#ffb7b7b7</color>
+    <color name="friend_ranked_me_background">#ffedf9f8</color>
+    <color name="friend_ranked_me_rank_background">#ff4cbfbf</color>
+    <color name="stack_background">#ff242424</color>
+    <color name="shadow_radio_button_color">#ff535353</color>
+    <color name="axis_label_color">#ff484848</color>
+    <color name="tile_primary_text_color">#ff474747</color>
+    <color name="tile_goal_text_color">#ff474747</color>
+    <color name="tile_secondary_text_color">#ff999999</color>
+    <color name="goal_progress_bar_bg_start_color">#ffdddddd</color>
+    <color name="goal_progress_bar_bg_center_color">#ffdddddd</color>
+    <color name="goal_progress_bar_bg_end_color">#ffb2b2b2</color>
+    <color name="goal_progress_bar_blue_start_color">#ff55c2c2</color>
+    <color name="goal_progress_bar_blue_center_color">#ff55c2c2</color>
+    <color name="goal_progress_bar_blue_end_color">#ff86cecf</color>
+    <color name="goal_progress_bar_green_start_color">#ff89de00</color>
+    <color name="goal_progress_bar_green_center_color">#ff89de00</color>
+    <color name="goal_progress_bar_green_end_color">#ff66c009</color>
+    <color name="goal_progress_bar_orange_start_color">#ffff6a00</color>
+    <color name="goal_progress_bar_orange_center_color">#ffff6a00</color>
+    <color name="goal_progress_bar_orange_end_color">#fff3906d</color>
+    <color name="goal_progress_bar_yellow_start_color">#ffffbf00</color>
+    <color name="goal_progress_bar_yellow_center_color">#ffffbf00</color>
+    <color name="goal_progress_bar_yellow_end_color">#fff6cc5b</color>
+    <color name="person_background">#ffc9f0ec</color>
+    <color name="startup_text_color">#ff009a9a</color>
+    <color name="sleep_screen_grey_color">#ff8c8c8c</color>
+    <color name="corporate_message_background_color">#fff3f8fa</color>
+    
+    
+    <color name="light_grey">#ff999999</color>
+    
+    <color name="my_white">#8Cffffff</color>
+    <color name="my_black">#30000000</color>
+    <color name="my_red">#ff0000</color>
+    <color name="my_transparent">#00000000</color>
+    
+    <color name="alarm_item_text_time_color">#30000000</color>
+    <color name="alarm_item_text_color">#30000000</color>
+    <color name="alarm_item_text_sync_color">#30000000</color>
+    
+    <color name="water_text_color">#ff48ccf5</color>
+    
+    <color name="blue">#0000ff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#C0C0C0</color>
+    <color name="background_holo_light">#fff3f3f3</color>
+    
+    <color name="focusColor">#ff0000</color>
+    <color name="unfocusColor">@*android:color/white</color>
+    
+    <color name="sleep_deep_sleep">#1689c5</color>
+    <color name="sleep_restless">#66c9e9</color>
+    <color name="sleep_awake">#e9c666</color>
+    <color name="sleep_text_color">#7aecff</color>
+    <color name="sleep_text_press_color">#7aecff</color>
+    
+    <color name="food_plan_easy">#44a677</color>
+    <color name="food_plan_medium">#dab509</color>
+    <color name="food_plan_hard">#b85050</color>
+    
+    <color name="step_line">#038385</color>
+    <color name="step_circle">#2ac3c5</color>
+    
+    <color name="distance_line">#7b4d00</color>
+    <color name="distance_circle">#ffae25</color>
+    
+    <color name="floor_line">#457625</color>
+    <color name="floor_circle">#7cc352</color>
+    
+    <color name="active_line">#af7120</color>
+    <color name="active_circle">#f9662c</color>
+    
+    <color name="calory_line">#771a28</color>
+    <color name="calory_circle">#f92c4d</color>
+    
+    <color name="water_line">#1898ae</color>
+    <color name="water_circle">#27e0ff</color>
+    
+    <color name="dinner_line">#9761ab</color>
+    <color name="dinner_circle">#d094e7</color>
+    
+    <color name="sleep_line">#369ad4</color>
+    <color name="sleep_circle">#2e79a4</color>
+    
+    <color name="weight_line">#ef82e6</color>
+    <color name="weight_circle">#ef82e6</color>
+    
+    <color name="statistic_text_color">#2d89a6</color>
+    <color name="statistic_text_color_inver">#ffffff</color>
+    
+    <color name="start">#00bbbbbb</color>
+    <color name="end">#00bbbbbb</color>
+    <color name="center">#ffbbbbbb</color>
+</resources>

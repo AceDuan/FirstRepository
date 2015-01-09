@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_log_out"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_log_out"/>
+    <item
+        android:id="@+id/action_showing_all"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:visible="false"
+        android:title="@string/action_showing_all"/>
+
+</menu>

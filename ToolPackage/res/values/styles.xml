@@ -1,0 +1,214 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:textCursorDrawable">@null</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="ChildWindow" parent="AppBaseTheme">
+        <item name="android:textCursorDrawable">@null</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="LaunchStyle" parent="AppTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <!-- <item name="android:windowIsTranslucent">true</item>
+        		如果加上窗口透明化處理，退出時的動畫效果也會消失
+         -->
+    </style>
+   
+    
+    <style name="RoundedButtonStyle" parent="@android:style/Widget.Button">
+        <item name="android:textSize">21.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">10dip</item>
+        <item name="android:layout_marginLeft">10dip</item>
+    </style>
+    <style name="RoundedButtonPink" parent="@style/RoundedButtonStyle">
+ <!--        <item name="android:background">@drawable/btn_rounded_pink</item> -->
+ 	<item name="android:background">@color/my_white</item>
+    </style>
+    <style name="RoundedButtonTeal" parent="@style/RoundedButtonStyle">
+ <!--         <item name="android:background">@drawable/btn_rounded_teal</item>-->
+ 		<item name="android:background">@color/my_white</item>
+    </style>
+    
+    <style name="OnboardingTealBox">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/teal_box</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+    
+    <style name="OnboardingTitle" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">27.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">12.0dip</item>
+    </style>
+    <style name="OnboardingScrollView" parent="@android:style/Widget.ScrollView">
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:paddingLeft">16.0dip</item>
+        <item name="android:paddingTop">24.0dip</item>
+        <item name="android:paddingRight">16.0dip</item>
+        <item name="android:paddingBottom">24.0dip</item>
+        <item name="android:fadingEdgeLength">0.0dip</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+    <style name="OnboardingSpinner" parent="@android:style/Widget.Holo.Spinner" />
+    <style name="OnboardingSpinnerItem" parent="@android:style/Widget.Holo.TextView.SpinnerItem">
+        <item name="android:textSize">13.0sp</item>
+    </style>
+    
+    <style name="OnboardingLabel" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">11.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:paddingTop">16.0dip</item>
+        <item name="android:paddingBottom">4.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">-2.0dip</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    
+    <style name="QuickAddText" parent="@android:style/Widget.Holo.TextView">
+        <item name="android:textSize">14.0dip</item>
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+    
+    <style name="OnboardingEditText" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">13.0sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLength">286</item>
+    </style>
+
+    <style name="Theme.Fitbit.Sherlock.RobotoFont" parent="@style/AppBaseTheme">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground</item>
+    </style>
+    <style name="WindowTitleBackground">
+        <item name="android:background">@drawable/title_bar_drawable</item>
+    </style>
+    
+    <style name="nullforme">
+        <item name="android:textSize">21.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@*android:color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="style_editor">
+        <item name="android:background">@color/my_black</item>
+        <item name="android:paddingTop">10dip</item>
+        <item name="android:paddingBottom">10dip</item>
+        <item name="android:layout_margin">2dip</item>
+    </style>    
+    
+    <style name="DayOfWeekCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:textSize">16.0dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/alarm_checkbox</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">2dip</item>
+        <item name="android:paddingRight">2dip</item>
+        </style>
+        
+    <style name="nothing">
+        
+    </style>
+    
+    <style name="largeFontSize">
+        <item name="android:textSize">41.0sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="smallFontSize">
+        <item name="android:textSize">21.0sp</item>
+    </style>
+    
+    <style name="Theme.Weight.LogInfo" parent="@android:style/Widget.Holo.TextView">
+        <item name="android:textSize"> 20sp</item>
+    </style>
+    <style name="Theme.MainInfo.SportData" parent="@style/largeFontSize">
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:layout_marginBottom">20dip</item>
+    </style>
+    
+    <style name="Theme.MainInfo.SportUnit" parent="@style/smallFontSize">
+        <item name="android:gravity">left|bottom</item>
+        <item name="android:layout_marginBottom">15dip</item>
+    </style>
+    
+    <style name="Theme.PersonInfo.Others" parent="@style/smallFontSize">
+    </style>
+    
+    <style name="Theme.PersonInfo.Name" parent="@style/largeFontSize">
+        <item name="android:textSize">39.0sp</item>
+    </style>
+    
+    <style name="Theme.Setting.Abs" parent="@style/smallFontSize">
+        <item name="android:layout_marginTop">14dip</item>
+        <item name="android:layout_marginBottom">14dip</item>
+    </style>
+    <style name="Theme.Setting.Black" parent="@style/Theme.Setting.Abs">
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="Theme.Setting.Gray" parent="@style/Theme.Setting.Abs">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="Theme.Setting.Blue" parent="@style/Theme.Setting.Abs">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <style name="Theme.Setting.Margin" parent="@style/nothing">
+        <item name="android:layout_marginStart">15dip</item>
+        <item name="android:layout_marginEnd">15dip</item>
+    </style>
+    
+    <style name="Theme.Setting.BlackWithMargin" parent="@style/Theme.Setting.Black">
+        <item name="android:layout_marginStart">15dip</item>
+        <item name="android:layout_marginEnd">15dip</item>
+    </style>
+    
+    <style name="Theme.Setting.BlueWithMargin" parent="@style/Theme.Setting.Blue">
+        <item name="android:layout_marginStart">15dip</item>
+        <item name="android:layout_marginEnd">15dip</item>
+    </style>
+    
+     <style name="StatisticViewStyle" parent="@android:style/Widget.TextView">
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:paddingRight">5dip</item>
+        <item name="android:layout_marginEnd">5dip</item>
+    </style>
+    
+    
+     <style name="GrayTitle" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">10.599976dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_grey</item>
+    </style>
+</resources>

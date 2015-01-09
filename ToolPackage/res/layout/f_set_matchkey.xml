@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+ <!--     
+ 已經確認switcher是可以用的，到後期加入實際的匹配機制後再考慮如何設計這個界面
+ <ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:background="http://schemas.android.com/apk/res/com.besta.app.SportBracelet"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <View
+            style="@style/nullforme"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+        
+        <ProgressBar
+            android:layout_width="200.0dip"
+            android:layout_height="200.0dip"
+            android:layout_gravity="center" />
+        <View
+            style="@style/nullforme"
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:layout_weight="1" />
+    </LinearLayout>
+-->
+    <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:background="http://schemas.android.com/apk/res/com.china.acetech.ToolPackage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/set_matchkey_hint"
+            style="@style/nullforme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="80dip"
+            android:layout_marginTop="100dip"
+            android:gravity="center"
+            android:text="@string/set_matchkey_hint" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dip"
+            android:layout_marginBottom="50dip"
+            android:paddingLeft="30dip"
+            android:paddingRight="30dip"
+            android:orientation="horizontal" >
+
+            <com.china.acetech.ToolPackage.customwidget.widget.MatchKeyInputText
+                android:id="@+id/set_matchkey_firstedit"
+                style="@style/nullforme"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:textSize="45sp"
+                android:layout_weight="1"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:inputType="numberSigned"
+                background:itemFocusBackground="@drawable/matchkey_editor_focus"
+                background:itemUnFocusBackground="@drawable/matchkey_editor_background" />
+
+            <com.china.acetech.ToolPackage.customwidget.widget.MatchKeyInputText
+                android:id="@+id/set_matchkey_secondedit"
+                style="@style/nullforme"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_weight="1"
+                android:textSize="45sp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:inputType="numberSigned"
+                background:itemFocusBackground="@drawable/matchkey_editor_focus"
+                background:itemUnFocusBackground="@drawable/matchkey_editor_background" />
+
+            <com.china.acetech.ToolPackage.customwidget.widget.MatchKeyInputText
+                android:id="@+id/set_matchkey_thirdedit"
+                style="@style/nullforme"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_weight="1"
+                android:textSize="45sp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:inputType="numberSigned"
+                background:itemFocusBackground="@drawable/matchkey_editor_focus"
+                background:itemUnFocusBackground="@drawable/matchkey_editor_background" />
+
+            <com.china.acetech.ToolPackage.customwidget.widget.MatchKeyInputText
+                android:id="@+id/set_matchkey_fourthedit"
+                style="@style/nullforme"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
+                android:layout_weight="1"
+                android:textSize="45sp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:inputType="numberSigned"
+                background:itemFocusBackground="@drawable/matchkey_editor_focus"
+                background:itemUnFocusBackground="@drawable/matchkey_editor_background" />
+        </LinearLayout>
+
+        <View
+            style="@style/nullforme"
+            android:layout_width="wrap_content"
+            android:layout_height="10dip" />
+
+        <Button
+            android:id="@+id/set_matchkey_button"
+            style="@style/RoundedButtonPink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/set_matchkey_btn_next" />
+
+        <View
+            android:id="@+id/control"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:background="#00ffffff" />
+    </LinearLayout>

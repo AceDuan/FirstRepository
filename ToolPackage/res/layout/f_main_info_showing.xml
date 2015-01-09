@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- Hide person infomation view -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dip"
+        android:paddingTop="5dip"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/person_info_headport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dip"
+            android:background="#00ffffff"
+            android:contentDescription="@null"
+            android:src="@drawable/prev_up" />
+
+        <RelativeLayout
+            android:id="@+id/main_person_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip" >
+
+            <TextView
+                android:id="@+id/person_info_name"
+                style="@style/Theme.PersonInfo.Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/person_info_birthday"
+                style="@style/Theme.PersonInfo.Others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/person_info_name"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/person_info_height"
+                style="@style/Theme.PersonInfo.Others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/person_info_birthday"
+                android:layout_marginBottom="5dip"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/person_info_weight"
+                style="@style/Theme.PersonInfo.Others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/person_info_birthday"
+                android:layout_marginBottom="5dip"
+                android:layout_marginLeft="15dip"
+                android:layout_toRightOf="@id/person_info_height"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:paddingRight="10dip" >
+
+                <ImageView
+                    android:id="@+id/person_info_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:paddingTop="2dip"
+                    android:src="@drawable/setting" />
+
+                <ImageView
+                    android:id="@+id/person_info_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:paddingTop="8dip"
+                    android:src="@drawable/share" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dip" >
+
+                    <ImageView
+                        android:id="@+id/device_connect_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:src="@drawable/disconnect" />
+
+                    <ProgressBar
+                        android:id="@+id/device_connect_connecting"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:visibility="invisible" />
+                </FrameLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+    <!-- Hide view end -->
+
+    <LinearLayout
+        android:id="@+id/device_info_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/list_selector_background"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/device_info_image"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dip"
+            android:background="#00ffffff"
+            android:contentDescription="@null"
+            android:src="@drawable/shouhuan" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/device_state"
+                style="@style/Theme.PersonInfo.Others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dip"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/device_sync_state"
+                style="@style/Theme.PersonInfo.Others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/device_state"
+                android:layout_marginTop="20dip"
+                android:gravity="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/device_battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/device_state"
+                android:layout_below="@id/device_sync_state"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dip"
+                android:layout_marginTop="20dip"
+                android:background="#00ffffff"
+                android:drawableRight="@drawable/batteryempty" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical"
+                android:paddingRight="10dip" >
+
+                <ImageView
+                    android:id="@+id/bt_setting_in_deviceset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:paddingTop="2dip"
+                    android:src="@drawable/setting" />
+
+                <ImageView
+                    android:id="@+id/bt_share_in_deviceset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    android:paddingTop="8dip"
+                    android:src="@drawable/share" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/sport_info_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_light"
+        android:gravity="center" />
+    <!--
+         <RelativeLayout
+        android:id="@+id/main_pager_hint" 
+        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+         <ImageButton android:id="@+id/main_info_lastday"
+             android:layout_height="20dip"
+             android:layout_width="20dip"
+             android:layout_alignParentLeft="true"
+             android:contentDescription="@null"
+            android:src="@drawable/prev_up"/>
+         
+         <ImageButton 
+             android:id="@+id/main_info_nextday" 
+             android:layout_height="20dip"
+             android:layout_width="20dip"
+             android:layout_alignParentRight="true"
+             android:contentDescription="@null"
+            android:src="@drawable/prev_up"/>
+         
+         
+    </RelativeLayout>
+    -->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_info_list_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!--
+             <ExpandableListView 
+	        android:id="@+id/expandableListView" 
+	        android:clickable="true" 
+	        android:layout_width="match_parent" 
+	        android:layout_height="match_parent" 
+	        android:layout_marginLeft="20.0dip" 
+	        android:layout_marginTop="5.0dip" 
+	        android:layout_marginRight="20.0dip" 
+	        android:layout_marginBottom="10.0dip" />
+        -->
+    </android.support.v4.view.ViewPager>
+
+    <View
+        android:id="@+id/control"
+        android:layout_width="match_parent"
+        android:layout_height="1dip" />
+
+</LinearLayout>

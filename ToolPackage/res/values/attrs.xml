@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<resources> 
+<declare-styleable name="Background"> 
+<attr name="itemFocusBackground" format="reference|color"/> 
+<attr name="itemUnFocusBackground" format="reference|color"/> 
+</declare-styleable> 
+
+<declare-styleable name="ToolBar"> 
+        <attr name="buttonNum" format="integer"/> 
+        <attr name="itemBackground" format="reference|color"/> 
+    </declare-styleable> 
+    
+<declare-styleable name="Image"> 
+<attr name="src" format="reference|color"/>  
+</declare-styleable>
+
+<declare-styleable name="TextSetting"> 
+<attr name="textsize" format="dimension"/>  
+</declare-styleable>
+
+</resources>

@@ -1,4 +1,342 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">ToolPackage</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="action_log_out">Log out</string>
+    <string name="action_showing_all">Show Hidden</string>
+    
+    <string name="startup_btn_set_new_device">Sign up</string>    
+    <string name="startup_btn_log_in">Log in</string>
+    
+    
+    <string name="log_in_title">Let\'s get started</string>
+    <string name="field_password_hint">Password</string>
+    <string name="field_email_hint">Email</string>
+    <string name="forgot_password">Forgot your password?</string>
+    
+    <string name="connect_error">Network access is unavailable. Please check it!</string>
+    <string name="error_user_info">Please check that your email and password are correct.</string>
+    <string name="waiting">Please waiting…</string>
+    
+    <string name="set_matchkey_hint">Enter the number on the display</string>
+    <string name="set_matchkey_btn_next">NEXT</string>
+    
+    <string name="set_up_new_account">Let\'s get started</string>
+    <string name="set_up_next">Next</string>
+    <string name="set_up_btn">All Done!</string>
+    <string name="set_up_existing_user">The email address you provided is already in use with an existing account.</string>
+
+    <string name="set_name_hint">Your Name</string>
+    <string name="set_name_sex_sexHint">What\'s your gender?</string>
+    <string name="set_name_sex_maleHint">Men</string>
+    <string name="set_name_sex_femaleHint">Women</string>
+    <string name="editor_empty_title">Input Error</string>
+    <string name="editor_empty_message">Please fill all fields correctly</string>
+    
+    <string name="year">YEAR</string>
+    <string name="month">MONTH</string>
+    <string name="day">DAY</string>
+    <string name="birthday_hint">What\'s your birthday?</string>
+    <string name="default_year">1900</string>
+    <string name="default_month">1</string>
+    <string name="default_day">31</string>
+    <string name="birthday_error_title">Input Error</string>
+    <string name="birthday_error_message">Please fill all fields correctly</string>
+    
+    <string name="meter">m</string>
+    <string name="centimeter">cm</string>
+    <string name="height_hint">How tall are you?</string>
+    
+    <string name="kilogram">kg</string>
+    <string name="weight_hint">what\'s your weight?</string>
+    
+    <string name="goal_hint">Health goals</string>
+    <string name="goal_step_hint">Steps</string>
+    <string name="goal_step_unit"></string>
+    <string name="goal_distance_hint">Distance</string>
+    <string name="goal_distance_unit">km</string>
+    <string name="goal_calorie_hint">Calories burned</string>
+    <string name="goal_calorie_unit">cal</string>
+    <string name="goal_action_hint">Vary active minutes</string>
+    <string name="goal_action_unit">minu</string>
+    <string name="goal_floor_hint">floor climbed</string>
+    <string name="goal_floor_unit"></string>
+    <string name="goal_target_weight_hint">target weight</string>
+    <string name="goal_target_weight_unit">kg</string>
+    <string name="goal_target_water_hint">target water</string>
+    <string name="goal_target_water_unit">ml</string>
+    
+    
+    <string name="main_title">DashBoard</string>
+    <string name="main_ui_step_hint">setps</string> 
+    <string name="main_ui_distance_km_hint">km</string>
+    <string name="main_ui_distance_feet_hint">miles</string>
+    <string name="main_ui_calory_hint">calories burned</string>
+    <string name="main_ui_active_hint">active minutes</string>
+    <string name="main_ui_floor_hint">floors</string>
+    <string name="main_ui_water_ml_hint">ml</string>
+    <string name="main_ui_water_oz_hint">oz</string>
+    <string name="main_ui_sleep_hint">hr</string>
+    <string name="main_ui_sleep_minute_hint">mins</string>
+    <string name="main_ui_dinner_hint">calories eaten</string>
+    <string name="main_ui_weight_kg_hint">kg</string>
+    <string name="main_ui_weight_pound_hint">lbs</string>
+    <string name="main_ui_weight_kg_left">kg to go</string>
+    <string name="main_ui_weight_pound_left">lbs to go</string>
+    <string name="main_ui_weight_goalmet">Goal Met!</string>
+    <string name="main_ui_joined_format">Joined %s</string>
+    <string name="main_ui_borned_format">Borned %s</string>
+    <string name="main_ui_jointime_format">MMM dd, yyyy</string>
+    
+        <string name="main_ui_step_name">setps</string> 
+    <string name="main_ui_distance_name">distance</string>
+    <string name="main_ui_calory_name">calories</string>
+    <string name="main_ui_active_name">active</string>
+    <string name="main_ui_floor_name">floors</string>
+    <string name="showtype_clock">clock</string>
+    
+    <string name="main_ui_step_menu_title">STEPS</string>
+    <string name="main_ui_floor_menu_title">FLOORS CLIMBED</string>
+    <string name="main_ui_distance_menu_title">DISTANCE</string>
+    <string name="main_ui_calories_menu_title">CALORIES BURNED</string>
+    <string name="main_ui_active_menu_title">VERY ACTIVE MINUTES</string>
+    <string name="main_ui_weight_menu_title">WEIGHT</string>
+    <string name="main_ui_sleep_menu_title">SLEEP</string>
+    <string name="main_ui_food_menu_title">FOOD PLAN</string>
+    <string name="main_ui_water_menu_title">WATER CONSUMED</string>
+    
+    <string name="context_menu_move_up">Move up</string>
+    <string name="context_menu_move_down">Move down</string>
+    <string name="context_menu_move_Hide">Hide</string>
+    
+    <string name="setting_title">Setting</string>
+    <string name="setting_foodlocal_hint">Food Database</string>
+    <string name="setting_timezone_hint">Time Zone</string>
+    <string name="setting_unit_hint">Units</string>
+    <string name="setting_timezone_auto_hint">Set automatically</string>
+    <string name="setting_setup_newdevice">Set Up A New Device</string>
+    <string name="setting_log_out">Log Out of App</string>
+    <string name="setting_device_connected">Connected</string>
+    <string name="setting_device_disconnected">Disconnected</string>
+    <string name="setting_device_connecting">Connecting</string>
+    
+    <string name="unit_title">Units</string>
+    <string name="unit_length_hint">Length</string>
+    <string name="unit_weight_hint">Weight</string>
+    <string name="unit_water_hint">Water</string>
+    <string name="unit_length_km">Centimeters, Kilometers</string>
+    <string name="unit_length_feet">Inch, Miles</string>
+    <string name="unit_weight_kg">Kilograms</string>
+    <string name="unit_weight_pound">Pounds</string>
+    
+    <string name="unit_length_feet_short">feet</string>
+    <string name="unit_length_cm_short">cm</string>
+    
+    <string name="unit_water_oz">Fluid Ounces (oz)</string>
+    <string name="unit_water_ml">Millileters (ml)</string>
+    <string name="unit_water_cup">cup</string>
+    
+    <string name="unit_water_oz_short">fl oz</string>
+    <string name="unit_water_ml_short">ml</string>
+    <string name="unit_water_cup_short">cup</string>
+    
+    <string name="setting_person_personinfo_hint">Body Info</string>
+    <string name="setting_person_gaol_hint">Fitness Goal</string>
+    <string name="setting_person_male">male</string>
+    <string name="setting_person_female">female</string>
+    
+    <string name="setting_goal_water_hint">Target Water</string>
+    <string name="setting_goal_water_unit">ml</string>
+    
+    <string name="setting_device_sync_hint">Sync Now</string>
+    <string name="setting_device_syncing_hint">Syncing…</string>
+    <string name="setting_device_autosync_hint">All-Day Sync</string>
+    <string name="setting_device_main_goal_hint">Main Goal</string>
+    <string name="setting_device_wrist_placement_hint">Wrist</string>
+    <string name="setting_device_data_showing_type_hint">Customize display</string>
+    <string name="setting_device_alarm_hint">Silent Alarms</string>
+    <string name="setting_device_clock_type_hint">Clock</string>
+    <string name="setting_device_wrist_strong_hand">Dominant</string>
+    <string name="setting_device_wrist_not_strong_hand">Un-Dominant</string>
+        
+    <string name="alarm_title">Silent Alarms</string>
+    <string name="alarm_add_new_alarm">Set a new Alarm</string>
+    <string name="alarm_delete_alarm">Delete alarm</string>
+    <string name="alarm_one_turn_on_off">Turn alarm on</string>
+    <string name="alarm_one_repeat">Repeats</string>
+    <string name="alarm_time_style_am">%s AM</string>
+    <string name="alarm_time_style_pm">%s PM</string>
+    <string name="alarm_one_alarm_title">done</string>
+    <string name="dialog_alarm_title">Delete Alarm</string>
+    <string name="dialog_alarm_message">Do you want delete this log?</string>
+    <string name="dialog_alarm_less_than_message">You can only have up to 4 alarms set.</string>
+    <string name="dialog_empty_title">Input Error</string>
+    <string name="dialog_empty_message">Please fill all fields correctly</string>
+    <string name="dialog_no_internet_title">Sync Fail</string>
+    <string name="dialog_no_internet_message">No network conenction.</string>
+    
+    <string name="label_no_silent_alarms">No silent alarms are set.</string>
+    <string name="label_state_on">ON</string>
+    <string name="label_state_off">OFF</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="label_every_day">Every day</string>
+    
+    <string name="weight_log_title">Weight</string>
+    <string name="weight_log_weight">Weight</string>
+    <string name="weight_log_fat">Fat</string>
+    <string name="weight_log_bmi">BMI</string>
+    <string name="editor_weight_log_weight_hint">WEIGHT</string>
+    <string name="editor_weight_log_fat_hint">BODY FAT</string>
+    <string name="dialog_editor_weight_warning_title">Input Error</string>
+    <string name="dialog_editor_weight_warning_message">Please fill all fields correctly</string>
+    <string name="weight_goal_hint">Goal weight: </string>
+    
+    <string name="food_plan_title">Create Fitness Plan</string>
+    <string name="food_plan_current_weight_hint">CURRENT WEIGHT</string>
+    <string name="food_plan_edsired_weight_hint">DESIRED WEIGHT</string>
+    <string name="food_plan_bt_next">NEXT</string>
+    <string name="food_plan_lose_value_format">Lose %s Cals/Day</string>
+    <string name="food_plan_weight_hint">kg/week</string>
+    <string name="food_plan_level_easy_title">EASY</string>
+    <string name="food_plan_level_medium_title">MEDIUM</string>
+    <string name="food_plan_level_hard_title">HARD</string>
+    <string name="food_plan_date_hint">ESTIMATED DATE</string>
+    <string name="food_plan_date_format">MMM dd, yyyy</string>
+    
+    
+     <string name="time_format">HH:mm</string>
+     <string name="ok">OK</string>
+     
+	<string name="monday_short">M</string>
+    <string name="tuesday_short">T</string>
+    <string name="wednesday_short">W</string>
+    <string name="thursday_short">Th</string>
+    <string name="friday_short">F</string>
+    <string name="saturday_short">S</string>
+    <string name="sunday_short">S</string>
+    
+    <string name="monday_statis">Mon</string>
+    <string name="tuesday_statis">Tues</string>
+    <string name="wednesday_statis">Wed</string>
+    <string name="thursday_statis">Thu</string>
+    <string name="friday_statis">Fri</string>
+    <string name="saturday_statis">Sat</string>
+    <string name="sunday_statis">Sun</string>
+    
+    <string name="january_statis">Jan</string>
+    <string name="february_statis">Feb</string>
+    <string name="march_statis">Mar</string>
+    <string name="april_statis">Apr</string>
+    <string name="may_statis">May</string>
+    <string name="june_statis">Jun</string>
+    <string name="july_statis">Jul</string>
+    <string name="august_statis">Aug</string>
+    <string name="september_statis">Sep</string>
+    <string name="october_statis">Oct</string>
+    <string name="november_statis">Nov</string>
+    <string name="december_statis">Dec</string>
+    
+    <string name="statis_button_day">day</string>
+    <string name="statis_button_week">week</string>
+    <string name="statis_button_month">month</string>
+    <string name="statis_button_year">year</string>
+    
+    <string name="water_log_title">Water</string>
+    <string name="waterlog_bt_log_in">Log it</string>
+    <string name="waterlog_waterstring_start">0</string>
+    <string name="waterlog_consumed_today">%s of water
+consumed today</string>
+	<string name="waterlog_quick_add">QUICK ADD</string>
+	<string name="zero_num">0</string>
+	
+	<string name="sleep_log_title">Sleep</string>
+	<string name="sleeplog_bt_start_sleep">Begin Sleep</string>
+	<string name="sleeplog_hint_little_sleep">Restless</string>
+	<string name="sleeplog_hint_awake">Awake</string>
+	
+	
+	<string name="add_new_log">Add New Log</string>
+	<string name="editor_log">Edit Log</string>
+	<string name="delete_log">delete</string>
+	
+    <string name="start_sleep_unit_hours">hours</string>
+    <string name="start_sleep_unit_minutes">mins</string>
+    <string name="start_sleep_awake_bt_text">I\'m awake!</string>
+    <string name="dialog_invaid_sleeptime_title">Error</string>
+    <string name="dialog_invaid_sleeptime_message">Sleep could not be logged.</string>
+    <string name="today_uppercase">TODAY</string>
+    <string name="yesterday_uppercase">YESTERDAY</string>
+    
+    <string name="editor_log_in">Log it</string>
+    <string name="editor_cancel">Cancel</string>
+    
+    <string name="active_log_title">Activity</string>
+    <string name="active_log_start_time_hint">START</string>
+    <string name="active_log_duration_time_hint">DURATION</string>
+    
+    <string name="food_log_title">Food Log</string>
+    <string name="anytime">Anytime</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="morning">Morning snack</string>
+    <string name="lunch">Lunch</string>
+    <string name="afternoon">Afternoon snack</string>
+    <string name="dinner">Dinner</string>
+    <string name="calories_case">%d calories eaten</string>
+    <string name="food_log_count">Count</string>
+    <string name="food_log_when">When</string>
+    <string name="dialog_food_empty_count_warning_title">Input Error</string>
+	<string name="dialog_food_empty_count_warning_message">Please fill all fields correctly</string>
+    
+    <string name="find_log_search_active_hint">Search for an activity</string>
+    <string name="find_log_search_food_hint">Search for a food</string>
+    <string name="find_log_common_text">Common</string>
+    <string name="find_log_favorite_text">Favorites</string>
+    
+    <string name="sync_date_hint">Synced: </string>
+    <string name="sync_date_format">yyyy/MM/dd HH:mm</string>
+    
+    <string name="dialog_search_device_fail_title">Search Device Fail</string>
+	<string name="dialog_search_device_fail_message">Power on your band\nmake sure it is nearby and try again</string>
+	<string name="dialog_cancel">Cancel</string>
+	<string name="dialog_yes">Yes</string>
+	<string name="dialog_no">No</string>
+	<string name="dialog_bluetooth_enable_title">Permission request</string>
+	<string name="dialog_bluetooth_enable_message">Requesting permission to turn on Bluetooth. Do you want to do this?</string>
+	<string name="dialog_log_out_warning_title">Log out of App</string>
+	<string name="dialog_log_out_warning_message">Do you want log out?</string>
+	<string name="dialog_set_up_warning_title">Set up new device</string>
+	<string name="dialog_set_up_warning_message">Do you want et up a new device?</string>
+	
+	<string name="dialog_water_delete_title">Delete Log</string>
+	<string name="dialog_water_delete_message">Do you want remove this log?</string>
+	
+	<string name="dialog_water_log_warning_title">Input Error</string>
+	<string name="dialog_water_log_warning_message">Please fill field correctly</string>
+	
+	<string name="dialog_main_hide_warning_title">Can\'t Hide All!</string>
+	<string name="dialog_main_hide_warning_message">List at least contains one item</string>
+    
+	<string name="web_return_fail">Fail</string>
+	<string name="web_return_success">Successful</string>
+	
+	<string name="web_return_user_name_unusable">User name is unusable</string>
+	<string name="web_return_registration_fail">Registration fail</string>
+	<string name="web_return_registration_success">Registration success</string>
+	
+	<string name="web_return_password_error">Password error</string>
+	<string name="web_return_account_exist">Account exist</string>
+	
+	<string name="web_return_old_password_error">old password error</string>
+	<string name="web_return_modify_fail">Password modify fail</string>
+	
+	<string name="forgot_password_message">Do you really want send email with your password to this address :</string>
+	<string name="forgot_password_success">A password find email has been sent.</string>
+	<string name="forgot_password_fail">Failed to send the email.</string>
+	<string name="forgot_password_vaild_address">Not a valid email address.</string>
+    
+	<string name="sharestringformat" formatted="false">I walked %s steps today, total distance is %s. %s Calories burned.</string>
+<string name="imageContextDescription">ImageView</string>
 </resources>
