@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.china.acetech.ToolPackage.customwidget.widget.StatisticSwitcher
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:id="@+id/statistic_switcher"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/statistic_nomal"
+            android:textColor="@color/statistic_text_color"
+            android:gravity="center"
+            android:id="@+id/statistic_day"
+            style="@style/StatisticViewStyle"
+            android:text="@string/statis_button_day" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/statistic_nomal"
+            android:textColor="@color/statistic_text_color"
+            android:gravity="center"
+            android:id="@+id/statistic_week"
+            style="@style/StatisticViewStyle"
+            android:text="@string/statis_button_week" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/statistic_nomal"
+            android:textColor="@color/statistic_text_color"
+            android:gravity="center"
+            android:id="@+id/statistic_month"
+            style="@style/StatisticViewStyle"
+            android:text="@string/statis_button_month" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/statistic_nomal"
+            android:gravity="center"
+            android:textColor="@color/statistic_text_color"
+            android:id="@+id/statistic_year"
+            style="@style/StatisticViewStyle"
+            android:text="@string/statis_button_year" />
+    </com.china.acetech.ToolPackage.customwidget.widget.StatisticSwitcher>
+    
+    <ViewSwitcher 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/statistic_Switchee">
+        <view 
+        android:layout_width="wrap_content"
+        android:layout_height="200dip"
+        class="com.china.acetech.ToolPackage.customwidget.widget.BarView"
+        android:id="@+id/bar_view"/>
+		<view
+        android:layout_width="wrap_content"
+        android:layout_height="200dip"
+        class="com.china.acetech.ToolPackage.customwidget.widget.LineView"
+        android:id="@+id/line_view"/>
+        
+         </ViewSwitcher>
+    
+
+</LinearLayout>

@@ -12,6 +12,9 @@ import android.widget.EditText;
 import com.china.acetech.ToolPackage.R;
 
 
+/**
+ * 包含自定义的xml资源标记处理，与attr.xml相互配合
+ */
 public class MatchKeyInputText extends EditText {
 
 	int mFocusBack;
