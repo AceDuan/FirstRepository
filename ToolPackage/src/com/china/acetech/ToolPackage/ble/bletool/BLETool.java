@@ -11,6 +11,7 @@ import com.china.acetech.ToolPackage.MyApplication;
 import com.china.acetech.ToolPackage.debug.DebugTool;
 
 /**
+ * add test change
  * 根据警告信息，在Android5.0的时候已经开始采用新的bleScan接口。有时间可以研究一下
  */
 public class BLETool {
