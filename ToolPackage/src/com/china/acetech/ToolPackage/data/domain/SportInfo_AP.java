@@ -6,6 +6,12 @@ import com.china.acetech.ToolPackage.java.CalendarToolForSync;
 import java.util.Date;
 
 /**
+ * 注意！！！數據結構的使用有問題，照此辦法使用時無法對數據庫進行更新或刪除操作。
+ * 實際上數據庫使用的ID是Entity對象下的EntityID。所以本地不需要也不能再存一次。
+ * 否則會出現問題
+ *
+ * Must Use Entity's EntityID. delete "id" in this object 
+ *
  * Entity mapped to table SPORT_INFO.
  */
 public class SportInfo_AP extends Entity{
