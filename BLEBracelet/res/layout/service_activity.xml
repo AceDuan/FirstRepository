@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="20.0dip">
+        <TextView android:textSize="20.0sp" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/connect_state" android:layout_weight="1.0" />
+        <TextView android:textSize="20.0sp" android:layout_gravity="left" android:id="@+id/peripheralState" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    </LinearLayout>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="20.0dip">
+        <TextView android:textSize="20.0sp" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/Rssi" android:layout_weight="1.0" />
+        <TextView android:textSize="20.0sp" android:layout_gravity="left" android:id="@+id/RssiNumber" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    </LinearLayout>
+    <ExpandableListView android:id="@+id/expandableListView" android:clickable="true" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginLeft="20.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="10.0dip" android:layout_weight="1.0" />
+    <LinearLayout android:orientation="vertical" android:id="@+id/linearlayout_Group" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginRight="20.0dip" android:layout_marginBottom="5.0dip">
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+            <TextView android:textSize="16.0sp"   android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/ascii" android:layout_weight="1.0" />
+            <TextView android:textSize="16.0sp" android:id="@+id/ascii_textView" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="" android:layout_weight="3.0" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="1.0dip" android:baselineAligned="false" android:layout_weight="1.0" style="@style/AppTheme">
+            <TextView android:textSize="16.0sp"  android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/hex" android:layout_weight="1.0" />
+            <TextView android:textSize="16.0sp" android:id="@+id/hex_textView" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="" android:layout_weight="3.0" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:layout_weight="1.0">
+            <TextView android:textSize="16.0sp"  android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/decimal" android:layout_weight="1.0" />
+            <TextView android:textSize="16.0sp" android:id="@+id/decimal_textView" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="" android:layout_weight="3.0" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="1.0dip" android:layout_weight="1.0">
+            <TextView android:textSize="16.0sp"  android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/date" android:layout_weight="1.0" />
+            <TextView android:textSize="16.0sp" android:id="@+id/date_textView" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="3.0" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="5.0dip" android:layout_weight="1.0">
+            <Button android:id="@+id/btn_Read" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/read" android:layout_weight="1.0" />
+            <Button android:id="@+id/btn_Write" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/write" android:layout_weight="1.0" />
+            <Button android:id="@+id/btn_Notify" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="@string/notify" android:layout_weight="1.0" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
