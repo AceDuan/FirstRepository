@@ -44,13 +44,7 @@ public class CustomCourse_AP  extends Entity{
 		public static final int BODYPART_Trunk_LowerLimb = BODYPART_Trunk | BODYPART_LowerLimb;
 		public static final int BODYPART_UpperLimb_LowerLimb_Trunk = BODYPART_UpperLimb | BODYPART_LowerLimb | BODYPART_Trunk;
 		
-		
-		public static final int CATEGORY_MUSCLE = 1;
-		public static final int CATEGORY_SOFT = 2;
-		
-		public static final int LEVEL_EASY = 0;
-		public static final int LEVEL_NORMAL = 1;
-		public static final int LEVEL_HARD = 2;
+
 	}
 	
     public CustomCourse_AP() {

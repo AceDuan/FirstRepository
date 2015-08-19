@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.concurrent.Future;
 
 import android.os.Environment;
-import com.china.acetech.ToolPackage.MyApplication;
 
 
 public abstract class DownloadResourceSync extends AbsInfoSync{

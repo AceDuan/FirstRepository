@@ -56,9 +56,6 @@ public class CustomCourseInfoSync extends AbsInfoSync{
 			RepositoryManager.getInstance().getCustomCourseRelative().clear(true);
 			RepositoryManager.getInstance().getCustomCourseRelative().addAll(actionList);
 		}
-		else{
-			
-		}
 		
 	}
 }

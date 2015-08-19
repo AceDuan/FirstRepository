@@ -1,12 +1,7 @@
 package com.china.acetech.ToolPackage.web;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.Future;
 
 import com.china.acetech.ToolPackage.MyApplication;
 import com.china.acetech.ToolPackage.debug.DebugTool;
@@ -35,9 +30,6 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.w3c.dom.Node;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.annotation.SuppressLint;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 /**
@@ -64,7 +56,7 @@ public abstract class ServiceConnectMethod {
 
 
 
-	public static final int NEVER_USE_ID_OF_THREAD = 0;
+	//public static final int NEVER_USE_ID_OF_THREAD = 0;
 	private static final int START_USE_ID_OF_THREAD = 100;
 	private static final int MAX_USE_ID_OF_THREAD = 10000;
 
@@ -72,7 +64,9 @@ public abstract class ServiceConnectMethod {
 	public int connect_HttpGet(final String method, final String URL, final String resourceName, final String resourceDirectory, final int resourceType) {
 		File directory = new File(resourceDirectory);
 		if ( !directory.exists() ){
-			directory.mkdirs();
+			if ( !directory.mkdirs() ) {
+				return -1;
+			}
 		}
 
 		ConnectThread t = new ConnectThread(method) {
@@ -121,7 +115,9 @@ public abstract class ServiceConnectMethod {
 							InputStream in = response.getEntity().getContent();
 							File file = new File(resourceDirectory + resourceName);
 							if ( !file.exists() ){
-								file.createNewFile();
+								if ( !file.createNewFile() ){
+									return ;
+								}
 							}
 							OutputStream out = new FileOutputStream(file);
 
@@ -129,7 +125,7 @@ public abstract class ServiceConnectMethod {
 							BufferedOutputStream buOut = new BufferedOutputStream(out);
 
 							byte[] data = new byte[512];
-							int readLeanth = 0;
+							int readLeanth = -1;
 							while ((readLeanth = buIn.read(data, 0, 512)) != -1) {
 								buOut.write(data, 0, readLeanth);
 
@@ -175,8 +171,6 @@ public abstract class ServiceConnectMethod {
 		return t.getThreadID();
 
 	}
-	public Future<?> videotest;
-	public Future<?> picturetest;
 
 
 	//採用Callable接口可以得到訪問的返回值並且可以管理線程的運行狀態。考慮一下還有那些地方需要改成這種機制
@@ -195,7 +189,7 @@ public abstract class ServiceConnectMethod {
 				//這裡根據父類的success或fail來進行下一步動作
 				boolean ret = downloadFile();
 				String result;
-				if ( ret == true )
+				if ( ret )
 					result = Connect_Success_Message;
 				else
 					result = Connect_Error_Message;
@@ -288,15 +282,20 @@ public abstract class ServiceConnectMethod {
 					//res = "Connect error! Please try again.";
 					result = Connect_Error_Message;
 				}
-				else if ( result instanceof Node){
-
+				else{
 					String message = ((Node)result).getFirstChild().getNodeValue();
 					if ( message != null )
 						result = message;
 				}
-				else{
-					result = Connect_Error_Message;
-				}
+//				else if ( result instanceof Node){
+//
+//					String message = ((Node)result).getFirstChild().getNodeValue();
+//					if ( message != null )
+//						result = message;
+//				}
+//				else{
+//					result = Connect_Error_Message;
+//				}
 
 				handleMessage(getThreadID(), result);
 				//if ( mHandler != null )
@@ -319,15 +318,15 @@ public abstract class ServiceConnectMethod {
 				//final String SOAP_ACTION = "AtlasAccount/AMD_Keyword_Report";
 				//final String METHOD_NAME = "Registration";
 				//final String METHOD_NAME = "AccountLogin";
-				final String METHOD_NAME = method;
-				final String NAMESPACE = "http://output.web.besta.com";;
+				//final String METHOD_NAME = method;
+				final String NAMESPACE = "http://output.web.besta.com";
 				//final String URL = "http://10.180.3.248/Besta/services/WristBand?wsdl";
 				//final String URL = "http://www.5dkg.com/Besta/services/HealthCourse?wsdl";
 				//final String URL = "http://10.180.3.132:8080/axis2/services/MyService?wsdl";
 
 
 
-				SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+				SoapObject request = new SoapObject(NAMESPACE, method);
 				//SimpleDateFormat sdf=new SimpleDateFormat("MMddyyyy");
 				//String date = sdf.format(new Date());
 
@@ -359,10 +358,10 @@ public abstract class ServiceConnectMethod {
 							Log.i("SoapError", e.toString());
 						if ( e instanceof EOFException )
 							continue;
-						;//connect fail
+						//connect fail
 						e.printStackTrace();
 					} catch (XmlPullParserException e) {
-						;//report fail
+						//report fail
 						e.printStackTrace();
 					}
 
@@ -430,8 +429,7 @@ public abstract class ServiceConnectMethod {
 		httpParams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpParams, REQUEST_TIMEOUT);
 		HttpConnectionParams.setSoTimeout(httpParams, SO_TIMEOUT);
-		HttpClient client = new DefaultHttpClient(httpParams);
-		return client;
+		return new DefaultHttpClient(httpParams);
 	}
 
 	public static String getValue( InputStream stream) throws IOException{

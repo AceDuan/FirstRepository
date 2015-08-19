@@ -10,13 +10,10 @@ public class SoapXmlMaker {
 	
 	public static final String defaultName = "http://schemas.xmlsoap.org/soap/envelope/";
 	public static final String defaultPreix = "soapenv";
-	
-	public static final String AnotherName = "http://www.w3.org/2001/XMLSchema-instance";
+
 	public static final String BXCName = "http://output.web.besta.com";
 	public static final String BXCPreix = "ns";
-	
-	public static final String BestaCloudName = "http://tempuri.org/";
-	public static final String BestaCloudPreix = "ns";
+
 	public SoapXmlMaker(){
 		namespace = new HashMap<String, String>();
 		
@@ -31,9 +28,9 @@ public class SoapXmlMaker {
 	
 	public String createBestaCloudXML(MySoapObject root){
 		
-		String res = root.getXMLString(namespace);
+		//String res = root.getXMLString(namespace);
 		//System.out.println(res);
-		return res;
+		return root.getXMLString(namespace);
 	}
 	
 	public String createXML(String method, List<MySoapObject> itemList){
@@ -52,9 +49,9 @@ public class SoapXmlMaker {
 		}
 		body.addItem(method_soap);
 		
-		String res = root.getXMLString(namespace);
+		//String res = root.getXMLString(namespace);
 		//System.out.println(res);
-		return res;
+		return root.getXMLString(namespace);
 	}
 	
 	

@@ -14,7 +14,7 @@ public class FileDownloadThread extends Thread{
 //public class FileDownloadThread implements Callable<Boolean>{
     private static final int BUFFER_SIZE=1024 * 8;  
     protected int connectTimeout = 30 * 1000; // 连接超时:30s
-    protected int readTimeout = 1 * 1000 * 1000; // IO超时:1min
+    protected int readTimeout = 1000 * 1000; // IO超时:1min
     
     private URL url;  
     private File file;  
@@ -34,8 +34,8 @@ public class FileDownloadThread extends Thread{
     }  
     @Override  
     public void run() {  
-        BufferedInputStream bis = null;  
-        RandomAccessFile fos = null;                                                 
+        BufferedInputStream bis;
+        RandomAccessFile fos;
         byte[] buf = new byte[BUFFER_SIZE];  
         HttpURLConnection con = null;  
         try {  

@@ -12,17 +12,9 @@ public class PropertyRegisterable {
 	public static final boolean ACTIVE = true;
 	
 	public static final String ACTIVITY_REFRESH = "ActivityRefresh";
-	public static final String REFRESH_SPORTGOAL = "re_SportGoal";
 	public static final String REFRESH_USERINFO = "re_UserInfo";
-	public static final String REFRESH_STATISTIC = "re_Statistic";
-	public static final String REFRESH_SLEEPLOG = "re_SleepLog";
 	public static final String REFRESH_SLEEPSTATISTIC = "re_SleepStatistic";
-	public static final String REFRESH_WATERLOG = "re_WaterLog";
-	public static final String REFRESH_ACTIVELOG = "re_ActiveLog";
-	public static final String REFRESH_FOODLOG = "re_FoodLog";
 	public static final String REFRESH_MAINLIST = "re_MainList";
-	
-	public static final String BLE_BATTARY_CALLBACK = "ble_battary_callback";
 	
 	public static final String BLE_SYNC_OVER = "ble_sync_over";
 	public static final String BLE_START_SYNC = "ble_start_sync";
@@ -32,7 +24,6 @@ public class PropertyRegisterable {
 	public static final String BLE_DISCONNECT_WITH_WRONG_DE = "ble_disconnect_wrong_device";
 	
 	public static final String BLE_DISCONNECTED = "ble_disconnected";
-	public static final String BLE_CONNECTED = "ble_connected";
 	public static final String BLE_CONNECTING = "ble_connecting";
 	public static final String BLE_CONNECT_STATE = "ble_connect_state";
 	
@@ -40,19 +31,14 @@ public class PropertyRegisterable {
 	
 	public static final String BLE_CLOSED_CONNECT = "ble_colsed_connect";
 	
-	public static final String BLE_SYNC_DATE_CHANGE = "ble_syncdate_change";
-	
 	//這幾項消息出現在設備連接過程中
 	public static final String BLE_CONNECTION = "ble_connection";
 	public static final String BLE_CONNECTION_START_SYNC = "ble_connection_start_sync";
-	public static final String BLE_CONNECTION_SYNC_SUCCESS = "ble_connection_sync_success";
-	public static final String BLE_CONNECTION_SYNC_FAIL = "ble_connection_sync_fail";
 	
 	public static final String BLE_FACTORY_INFO_REFRESH = "ble_factory_info_refresh";
 
 
 	public static final String FAVORITE_FRAGMENT = "FavoriteView";
-	public static final String FAVORITE_COMBOCOURSE = "ComboCourse";
 	public static final String FAVORITE_CUSTOMCOURSE = "CustomCourse";
 
 	public static final String UPDATE_BRACELET_DOWNLOAD_SUCCESS = "UpdateBraceletDataDownloadSuccess";

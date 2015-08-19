@@ -1,11 +1,5 @@
 package com.china.acetech.ToolPackage.web;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.util.SparseIntArray;
 
 import com.china.acetech.ToolPackage.MyApplication;
@@ -79,27 +73,7 @@ public abstract class AbsInfoSync {
 		});
 	}
 
-	protected static final int UPDATE = 1;
-	protected static final int DOWNLOAD = 2;
 	protected static final int EQUAL = 3;
-
-//	private void judgeAndSendOrder(Object object){
-//
-//		int order = getSyncType(object);
-//		switch ( order ){
-//		case EQUAL:
-//			syncFlag = false;
-//			break;
-//		case UPDATE:
-//			updateData(object);
-//			break;
-//		case DOWNLOAD:
-//			downLoadData(object);
-//			break;
-//		default:
-//			break;
-//		}
-//	}
 
 	/**
 	 * 需要根據線程ID來確定當前運行到哪個階段，現在的做法是同步進程只能有一個。
@@ -110,13 +84,6 @@ public abstract class AbsInfoSync {
 		public void onConnected(int threadID, Object object) {
 
 			switch (mThreadMap.get(threadID)){
-//			case GET_SYNC_FLAG:
-//				judgeAndSendOrder(object);
-//				break;
-//			case UPDATE_DATA_TO_S:
-//				break;
-//			case DOWNLOAD_DATA_FROM_S:
-//				break;
 				default:
 					if ( object instanceof SoapObject ){
 						SoapObject soap = (SoapObject)object;
@@ -201,13 +168,5 @@ public abstract class AbsInfoSync {
 		return message.equals(ServiceConnectMethod.Connect_Error_Message);
 	}
 
-	public static class SyncHolder{
-		public final AbsInfoSync Sync;
-		public final Object value;
-		public SyncHolder(AbsInfoSync sync, Object object){
-			this.Sync = sync;
-			this.value = object;
-		}
-	}
 }
 

@@ -2,20 +2,14 @@ package com.china.acetech.ToolPackage.web;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-import com.china.acetech.ToolPackage.MyApplication;
 import com.china.acetech.ToolPackage.data.domain.BraceletInfo_AP;
 import com.china.acetech.ToolPackage.data.domain.CustomCourseRelative_AP;
 import com.china.acetech.ToolPackage.data.domain.CustomCourse_AP;
 import com.china.acetech.ToolPackage.data.domain.UserImageData_AP;
 import com.china.acetech.ToolPackage.java.CalendarToolForSync;
-import com.china.acetech.ToolPackage.web.customsoap.MySoapObject;
 import com.china.acetech.ToolPackage.web.customsoap.SoapXmlMaker;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.ksoap2.serialization.NullSoapObject;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;

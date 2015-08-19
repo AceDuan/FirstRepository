@@ -96,9 +96,7 @@ public class CustomCourseGreenDaoRepository extends AbstractEntityGreenDaoReposi
 	 * <br/>
 	 * PS：由於此項同步操作會導致ap的ID無限制增大。有可能使得某一時刻超過long型的最大值。
 	 * 所以一定時間間隔后，同步完成后刪除本地的所有課程信息并重新下載比較好。<br/>
-	 * 
-	 * @param webCourseList
-	 * @return
+	 *
 	 */
 	public List<CustomCourse_AP> refreshCourseInfo(List<CustomCourse_AP> webCourseList){
 		List<CustomCourse_AP> localList = getAllByOrder();

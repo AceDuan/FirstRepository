@@ -50,9 +50,6 @@ public class BraceletInfoSync extends AbsInfoSync{
 				
 				mThreadMap.append(ID, DownloadUpdateData);
 			}
-			else{
-				
-			}
 			
 		}
 	}

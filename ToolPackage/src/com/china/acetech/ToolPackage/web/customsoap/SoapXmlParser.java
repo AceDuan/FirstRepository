@@ -112,7 +112,7 @@ public class SoapXmlParser {
 	
 	public static String GetElementsValueByTagName(String TagName, Element element)
 	{
-		String RetValue = "";
+		String RetValue;
 		RetValue = element.getElementsByTagName(TagName).item(0).getFirstChild().getNodeValue();
 		
 		return RetValue;
@@ -120,11 +120,10 @@ public class SoapXmlParser {
 	
 	/**
 	 * @param tagNameWithPath  e.g.  /Besta/SYConst/Row must start with"/"
-	 * @param element
 	 * @return null if the path is error
 	 */
 	public static String getDeepElementsValueByTagName(String tagNameWithPath, Element element){
-		String RetValue = null;
+		String RetValue;
 		try{
 			tagNameWithPath = tagNameWithPath.substring(1);
 			String[] array = tagNameWithPath.split("/");
@@ -175,7 +174,9 @@ public class SoapXmlParser {
 			}
 			RetValue = temp.getFirstChild().getNodeValue();
 		}
-		catch (Exception e){}
+		catch (Exception e){
+			System.out.println("Exception");
+		}
 		
 		return RetValue;
 	}

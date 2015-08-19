@@ -96,7 +96,7 @@ public class CustomCourseRelativeDao extends AbstractDao<CustomCourseRelative, L
         );
         return entity;
     }
-     
+
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, CustomCourseRelative entity, int offset) {
@@ -105,14 +105,14 @@ public class CustomCourseRelativeDao extends AbstractDao<CustomCourseRelative, L
         entity.setCourseID(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setActionOrder(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
      }
-    
+
     /** @inheritdoc */
     @Override
     protected Long updateKeyAfterInsert(CustomCourseRelative entity, long rowId) {
         entity.setId(rowId);
         return rowId;
     }
-    
+
     /** @inheritdoc */
     @Override
     public Long getKey(CustomCourseRelative entity) {
