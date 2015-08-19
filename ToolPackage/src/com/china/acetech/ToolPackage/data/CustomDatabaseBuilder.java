@@ -5,9 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.china.acetech.ToolPackage.MyApplication;
 import com.china.acetech.ToolPackage.MySavedState;
-import com.china.acetech.ToolPackage.data.domain.SportInfo_AP;
-import com.china.acetech.ToolPackage.data.repo.greenDao.SportInfoGreenDaoRepository;
-import com.china.acetech.ToolPackage.java.CalendarToolForSync;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,6 +44,8 @@ public class CustomDatabaseBuilder {
 		//RepositoryManager.getInstance().getFoodList().clear(false);
 		//RepositoryManager.getInstance().getSportList().clear(false);
 
+		//数据结构已经从代码中删除，详细过程可以琢磨一下
+/*
 		SportInfoGreenDaoRepository manager = new SportInfoGreenDaoRepository();
 		manager.clear(false);
 		
@@ -69,23 +68,10 @@ public class CustomDatabaseBuilder {
 		cursor.close();
 		//RepositoryManager.getInstance().getSportList().addAll(sportList);
 		manager.addAll(sportList);
-		
-//		cursor = db.query("FOOD",null,null,null,null,null,null);
-//		List<FoodListLog_AP> foodList = new ArrayList<FoodListLog_AP>();
-//		dbID = 0;
-//		if ( cursor.moveToFirst()) {
-//			while ( cursor.moveToNext() ){
-//				String foodName = cursor.getString(0);
-//				long calories = 1000 * cursor.getInt(1);
-//
-//				foodList.add(new FoodListLog_AP(dbID, foodName, calories, false, 0, SBApplication.getZeroTime()));
-//				dbID++;
-//			}
-//		}
-//		cursor.close();
-//		RepositoryManager.getInstance().getFoodList().addAll(foodList);
+
 
 		db.close();
+		*/
 	}
 	private void createFile(String dbInAssets, String desName){
 		

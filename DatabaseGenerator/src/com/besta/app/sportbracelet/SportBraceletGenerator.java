@@ -39,7 +39,41 @@ public class SportBraceletGenerator {
     }
 
     private static void addUserInfo(Schema schema) {
-        Entity sportInfo = schema.addEntity("SportInfo");
+        Entity info;
+
+        info = schema.addEntity("CustomCourse");
+        info.addIdProperty().autoincrement();;
+        info.addStringProperty("courseID");
+        info.addStringProperty("courseName");
+        info.addIntProperty("categoryID");
+        info.addIntProperty("trainSegmentID");
+        info.addDateProperty("syncTime");
+        info.addLongProperty("CountOfSum");
+        info.addLongProperty("CountInWeek");
+        info.addIntProperty("Level");
+        info.addBooleanProperty("isFavorite");
+        info.addStringProperty("firstPicturePath");
+
+        info = schema.addEntity("CustomCourseRelative");
+        info.addIdProperty().autoincrement();;
+        info.addIntProperty("actionID");
+        info.addStringProperty("courseID");
+        info.addIntProperty("actionOrder");
+
+
+        info = schema.addEntity("UserImageData");
+        info.addIdProperty();
+        info.addStringProperty("ImageData");
+
+        info = schema.addEntity("BraceletInfo");
+        info.addIdProperty();
+        info.addStringProperty("bracelet");
+        info.addStringProperty("version");
+        info.addStringProperty("MD5");
+        info.addStringProperty("MacAddress");
+        info.addStringProperty("fileName");
+
+        /*Entity sportInfo = schema.addEntity("SportInfo");
         sportInfo.addIdProperty().autoincrement();
         sportInfo.addDateProperty("calendar");
         sportInfo.addIntProperty("number");
@@ -51,6 +85,7 @@ public class SportBraceletGenerator {
         sportInfo.addIntProperty("floor");
         sportInfo.addIntProperty("sleepstatus");
         sportInfo.addDateProperty("lastsynctime");
+        */
 
   /*      Entity info = schema.addEntity("UserInfo");
         info.addIdProperty();

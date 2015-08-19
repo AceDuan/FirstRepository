@@ -49,8 +49,15 @@ public class PropertyRegisterable {
 	public static final String BLE_CONNECTION_SYNC_FAIL = "ble_connection_sync_fail";
 	
 	public static final String BLE_FACTORY_INFO_REFRESH = "ble_factory_info_refresh";
-	
-	
+
+
+	public static final String FAVORITE_FRAGMENT = "FavoriteView";
+	public static final String FAVORITE_COMBOCOURSE = "ComboCourse";
+	public static final String FAVORITE_CUSTOMCOURSE = "CustomCourse";
+
+	public static final String UPDATE_BRACELET_DOWNLOAD_SUCCESS = "UpdateBraceletDataDownloadSuccess";
+
+
 	private PropertyChangeSupport support;
 	private HashMap<PropertyChangeListener, Integer> listenerList;
 	

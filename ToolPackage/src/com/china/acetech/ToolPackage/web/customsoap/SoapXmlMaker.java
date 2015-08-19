@@ -1,4 +1,4 @@
-package com.china.acetech.ToolPackage.web.customsoap;
+﻿package com.china.acetech.ToolPackage.web.customsoap;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +12,11 @@ public class SoapXmlMaker {
 	public static final String defaultPreix = "soapenv";
 	
 	public static final String AnotherName = "http://www.w3.org/2001/XMLSchema-instance";
-	public static final String BXCName = "http://wristband.besta.com";
+	public static final String BXCName = "http://output.web.besta.com";
 	public static final String BXCPreix = "ns";
+	
+	public static final String BestaCloudName = "http://tempuri.org/";
+	public static final String BestaCloudPreix = "ns";
 	public SoapXmlMaker(){
 		namespace = new HashMap<String, String>();
 		
@@ -24,6 +27,13 @@ public class SoapXmlMaker {
 	
 	public void addNewNameSapce(String preix, String NameSpace){
 		namespace.put(NameSpace, preix);
+	}
+	
+	public String createBestaCloudXML(MySoapObject root){
+		
+		String res = root.getXMLString(namespace);
+		//System.out.println(res);
+		return res;
 	}
 	
 	public String createXML(String method, List<MySoapObject> itemList){

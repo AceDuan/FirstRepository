@@ -130,6 +130,11 @@ public abstract class AbstractEntityGreenDaoRepository<TEntity extends Entity, T
         return fromDbEntities(this.entityDao.queryBuilder().where(paramWhereCondition, paramArrayOfWhereCondition).build().list());
     }
 
+    protected List<TEntity> getEntitiesWhereOr(WhereCondition paramWhereCondition, WhereCondition paramWhereCondition_ano, WhereCondition[] paramArrayOfWhereCondition)
+    {
+        return fromDbEntities(this.entityDao.queryBuilder().whereOr(paramWhereCondition, paramWhereCondition_ano, paramArrayOfWhereCondition).build().list());
+    }
+
     public AbstractDao<TDBEntity, Long> getEntityDao() {
         return this.entityDao;
     }

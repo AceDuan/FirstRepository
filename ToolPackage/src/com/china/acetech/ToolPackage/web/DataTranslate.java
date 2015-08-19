@@ -6,13 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.china.acetech.ToolPackage.MyApplication;
-import com.china.acetech.ToolPackage.data.domain.SportInfo_AP;
+import com.china.acetech.ToolPackage.data.domain.BraceletInfo_AP;
+import com.china.acetech.ToolPackage.data.domain.CustomCourseRelative_AP;
+import com.china.acetech.ToolPackage.data.domain.CustomCourse_AP;
+import com.china.acetech.ToolPackage.data.domain.UserImageData_AP;
 import com.china.acetech.ToolPackage.java.CalendarToolForSync;
 import com.china.acetech.ToolPackage.web.customsoap.MySoapObject;
 import com.china.acetech.ToolPackage.web.customsoap.SoapXmlMaker;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.ksoap2.serialization.NullSoapObject;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.w3c.dom.Element;
@@ -38,7 +42,8 @@ public class DataTranslate {
 	private static final String LASTSYNCTIME = "ModifyDate";  //LastSyncTime is used in every entity
 	
 	public static final String RETURN_VALUE = "ReturnString";
-	
+
+	public static final String SERVICE_RESULT = "ServiceResult";
 //	public static Date getLastSyncTime(String message){
 //		try {
 //			return getLastSyncTime(new JSONArray(message));
@@ -98,11 +103,11 @@ public class DataTranslate {
 		return info;
 	}
 
-	/**
+/*	*//**
 	 * 每天的運動數據信息的交互規則
 	 * @author bxc2010011
 	 *
-	 */
+	 *//*
 	public static class SportInfo{
 
 		private static final String NUMBER = "ID";
@@ -163,11 +168,9 @@ public class DataTranslate {
 			String date = sportInfo.getPropertySafelyAsString(DATE);
 			return Long.valueOf(date);
 		}
-		/**
+		*//**
 		 * 從服務器上抓取的時間是以秒為單位的，需要乘以1000
-		 * @param object
-		 * @return
-		 */
+		 *//*
 		public static long getDateOfSportData(Node object){
 			String date;
 			if ( isElementEmpty("StatisticsTable", (Element)object))
@@ -388,8 +391,230 @@ public class DataTranslate {
 		}
 
 
+	}*/
+
+	public static class CustomCourse{
+		public static final String SOAP_TITLE = "SelfTrainingCourse";
+		public static final String COURSEID = "CourseID";
+		public static final String COURSENAME = "CourseName";
+		public static final String CATEGORYID = "CategoryID";
+		public static final String TRAINSEGMENT = "TrainSegment";
+		public static final String ACTIONSYNCTIME = "SyncTime";
+		public static final String COUNTOFSUM = "CountOfSum";
+		public static final String COUNTINWEEK = "CountInWeek";
+		public static final String LEVEL = "Level";
+		public static final String ISFAVORITE = "IsFavorite";
+		public static final String FIRSTPICTUREPATH = "FirstPicturePath";
+
+		public static final String ACTIONORDERINFOSET = "ActionOrderInfoSet";
+		public static final String ACTIONORDERINFO = "ActionOrderInfo";
+		public static final String ACTIONID = "ActionID";
+		public static final String ACTIONORDER = "ActionOrder";
+
+
+		public static void Soap2DB(CustomCourse_AP entity, SoapObject root){
+			//SoapObject packageinfo = (SoapObject)root.getProperty("RecommendedCourseList");
+			//SoapObject accountInfo = (SoapObject)packageinfo.getProperty(SOAP_TITLE);
+
+			String temp = root.getPropertySafelyAsString(COURSEID);
+			entity.setCourseID(temp);
+			temp = root.getPropertySafelyAsString(COURSENAME);
+			entity.setCourseName(temp);
+			temp = root.getPropertySafelyAsString(CATEGORYID);
+			entity.setCategoryID(Integer.valueOf(temp));
+			temp = root.getPropertySafelyAsString(TRAINSEGMENT);
+			entity.setTrainSegmentID(Integer.valueOf(temp));
+			temp = root.getPropertySafelyAsString(ACTIONSYNCTIME);
+			if ( temp.length() == 0 )
+				temp = "0";
+			entity.setSyncTime(new Date(Long.valueOf(temp)));
+			temp = root.getPropertySafelyAsString(COUNTOFSUM);
+			entity.setCountOfSum(Long.valueOf(temp));
+			temp = root.getPropertySafelyAsString(COUNTINWEEK);
+			entity.setCountInWeek(Long.valueOf(temp));
+			temp = root.getPropertySafelyAsString(LEVEL);
+			entity.setLevel(Integer.valueOf(temp));
+			temp = root.getPropertySafelyAsString(ISFAVORITE);
+			entity.setIsFavorite(Boolean.valueOf(temp));
+			temp = root.getPropertySafelyAsString(FIRSTPICTUREPATH);
+			entity.setFirstPicturePath(temp);
+			{
+				SoapObject ActionSet = (SoapObject)root.getProperty(ACTIONORDERINFOSET);
+				int count = ActionSet.getPropertyCount();
+				List<CustomCourseRelative_AP> relaList = new ArrayList<CustomCourseRelative_AP>();
+				for ( int i = 0; i < count; i++ ){
+					CustomCourseRelative_AP relative = new CustomCourseRelative_AP();
+					relative.setCourseID(entity.getCourseID());
+					SoapObject soap = (SoapObject)ActionSet.getProperty(i);
+					temp = soap.getPropertyAsString(ACTIONID);
+					relative.setActionID(Integer.valueOf(temp));
+					temp = soap.getPropertyAsString(ACTIONORDER);
+					relative.setActionOrder(Integer.valueOf(temp));
+					relaList.add(relative);
+				}
+
+				entity.setActionList(relaList);
+			}
+		}
+
+		public static void AllSoap2DB(List<CustomCourse_AP> list, SoapObject root){
+			SoapObject packageinfo = (SoapObject)root.getProperty("SelfTrainingCourseList");
+			SoapObject temp;
+			CustomCourse_AP entity;
+			int count = packageinfo.getPropertyCount();
+			for ( int i = 0; i < count; i++){
+				temp = (SoapObject)packageinfo.getProperty(i);
+				entity = new CustomCourse_AP();
+				Soap2DB(entity, temp);
+				list.add(entity);
+			}
+		}
+
+		public static PropertyInfo DB2Soap(CustomCourse_AP APEntity){
+
+			PropertyInfo Proinfo = new PropertyInfo();
+
+			//info.setName(name)
+			//object.addProperty(ACCOUNT, APEntity.getAccount());
+			SoapObject info = new SoapObject(SoapXmlMaker.BXCName, "anyType");
+
+			info.addProperty(makeSoapEntity(COURSEID, APEntity.getCourseID()));
+			info.addProperty(makeSoapEntity(COURSENAME, APEntity.getCourseName()));
+			info.addProperty(makeSoapEntity(CATEGORYID,String.valueOf(APEntity.getCategoryID())));
+			info.addProperty(makeSoapEntity(TRAINSEGMENT, String.valueOf(APEntity.getTrainSegmentID())));
+			info.addProperty(makeSoapEntity(ACTIONSYNCTIME,
+					String.valueOf(APEntity.getSyncTime().getTime())));
+			info.addProperty(makeSoapEntity(COUNTOFSUM, APEntity.getCountOfSum().toString()));
+			info.addProperty(makeSoapEntity(COUNTINWEEK, APEntity.getCountInWeek().toString()));
+			info.addProperty(makeSoapEntity(LEVEL, APEntity.getLevel().toString()));
+			info.addProperty(makeSoapEntity(ISFAVORITE, APEntity.getIsFavorite().toString()));
+			info.addProperty(makeSoapEntity(FIRSTPICTUREPATH, APEntity.getFirstPicturePath()));
+			{
+				SoapObject ActionRoot = new SoapObject(SoapXmlMaker.BXCName, ACTIONORDERINFOSET);
+				for ( CustomCourseRelative_AP rela : APEntity.getActionList() ){
+					SoapObject action = new SoapObject(SoapXmlMaker.BXCName, ACTIONORDERINFO);
+					action.addProperty(makeSoapEntity(ACTIONID, rela.getActionID().toString()));
+					action.addProperty(makeSoapEntity(ACTIONORDER, rela.getActionOrder().toString()));
+					ActionRoot.addSoapObject(action);
+				}
+				info.addSoapObject(ActionRoot);
+			}
+
+
+			Proinfo.setValue(info);
+			Proinfo.setType(SoapObject.class);
+			Proinfo.setName(SOAP_TITLE);
+			Proinfo.setNamespace("http://output.web.besta.com");
+			return Proinfo;
+		}
 	}
 
+	public static class BraceletInfo{
+
+
+		public static final String SOAP_TITLE = "BraceletInfo";
+		public static final String BRACELET = "Bracelet";
+		public static final String VERSION = "Version";
+		public static final String MD5 = "MD5";
+		public static final String FileName = "FileName";
+
+
+		public static void Soap2DB(BraceletInfo_AP entity, SoapObject root){
+//			SoapObject packageinfo = (SoapObject)root.getProperty("PackageInfoTable");
+//			Object o = packageinfo.getPropertySafely(SOAP_TITLE);
+//			if ( o instanceof NullSoapObject )
+//				return;
+			SoapObject accountInfo = (SoapObject)root;
+			//SoapObject accountInfo = (SoapObject)packageinfo.getPropertySafely(SOAP_TITLE);
+			// = (SoapObject)packageinfo.getProperty(SOAP_TITLE);
+
+			String temp = accountInfo.getPropertySafelyAsString(BRACELET);
+			entity.setBracelet(temp);
+			temp = accountInfo.getPropertySafelyAsString(VERSION);
+			entity.setVersion(temp);
+			temp = accountInfo.getPropertySafelyAsString(MD5);
+			entity.setMD5(temp);
+			temp = accountInfo.getPropertySafelyAsString(FileName);
+			entity.setFileName(temp);
+		}
+
+		public static void AllSoap2DB(List<BraceletInfo_AP> list, SoapObject root){
+			SoapObject packageinfo = (SoapObject)root.getProperty("PackageInfoTable");
+			SoapObject temp;
+			BraceletInfo_AP entity;
+			int count = packageinfo.getPropertyCount();
+			for ( int i = 0; i < count; i++){
+				if ( !(packageinfo.getProperty(i) instanceof SoapObject) )
+					continue;
+				temp = (SoapObject)packageinfo.getProperty(i);
+//				if ( !temp.getName().equals(SOAP_TITLE) )
+//					continue;
+				entity = new BraceletInfo_AP();
+				Soap2DB(entity, temp);
+				list.add(entity);
+			}
+		}
+
+		public static PropertyInfo DB2Soap(BraceletInfo_AP APEntity){
+
+			PropertyInfo Proinfo = new PropertyInfo();
+
+			//info.setName(name)
+			//object.addProperty(ACCOUNT, APEntity.getAccount());
+			SoapObject info = new SoapObject(SoapXmlMaker.BXCName, "anyType");
+
+			info.addProperty(makeSoapEntity(BRACELET, APEntity.getBracelet()));
+			info.addProperty(makeSoapEntity(VERSION, APEntity.getVersion()));
+
+
+			Proinfo.setValue(info);
+			Proinfo.setType(SoapObject.class);
+			Proinfo.setName(SOAP_TITLE);
+			Proinfo.setNamespace(SoapXmlMaker.BXCName);
+			return Proinfo;
+		}
+
+	}
+
+	public static class UserImageData{
+
+
+		public static final String SOAP_TITLE = "UserImageInfoTable";
+		public static final String IMAGEDATA = "ImageData";
+
+
+		public static void Soap2DB(UserImageData_AP entity, SoapObject root){
+			SoapObject packageinfo = (SoapObject)root.getProperty("PackageInfoTable");
+			Object o = packageinfo.getPropertySafely(SOAP_TITLE);
+			if ( o instanceof NullSoapObject)
+				return;
+			SoapObject accountInfo = (SoapObject)o;
+			//SoapObject accountInfo = (SoapObject)packageinfo.getPropertySafely(SOAP_TITLE);
+			// = (SoapObject)packageinfo.getProperty(SOAP_TITLE);
+
+			String temp = accountInfo.getPropertySafelyAsString(IMAGEDATA);
+			entity.setImageData(temp);
+		}
+
+		public static PropertyInfo DB2Soap(UserImageData_AP APEntity){
+
+			PropertyInfo Proinfo = new PropertyInfo();
+
+			//info.setName(name)
+			//object.addProperty(ACCOUNT, APEntity.getAccount());
+			SoapObject info = new SoapObject(SoapXmlMaker.BXCName, "anyType");
+
+			info.addProperty(makeSoapEntity(IMAGEDATA, APEntity.getImageData()));
+
+
+			Proinfo.setValue(info);
+			Proinfo.setType(SoapObject.class);
+			Proinfo.setName(SOAP_TITLE);
+			Proinfo.setNamespace(SoapXmlMaker.BXCName);
+			return Proinfo;
+		}
+
+	}
 
 
 	private static final String[] stringMap = {"<", "&lt;"};
