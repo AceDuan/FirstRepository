@@ -24,6 +24,7 @@ public class PropertyRegisterable {
 	public static final String BLE_DISCONNECT_WITH_WRONG_DE = "ble_disconnect_wrong_device";
 	
 	public static final String BLE_DISCONNECTED = "ble_disconnected";
+	public static final String BLE_CONNECTED = "ble_connected";
 	public static final String BLE_CONNECTING = "ble_connecting";
 	public static final String BLE_CONNECT_STATE = "ble_connect_state";
 	

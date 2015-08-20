@@ -1,31 +1,41 @@
-package com.china.acetech.ToolPackage.ble.services;
+﻿package com.china.acetech.ToolPackage.ble.services;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import com.china.acetech.ToolPackage.MyApplication;
-import com.china.acetech.ToolPackage.R;
+import com.china.acetech.ToolPackage.MySavedState;
 import com.china.acetech.ToolPackage.ble.attributes.BLEConfig;
 import com.china.acetech.ToolPackage.ble.bletool.BLETool;
 import com.china.acetech.ToolPackage.ble.web.BaseSportInfoSync;
-import com.china.acetech.ToolPackage.debug.DebugTool;
 import com.china.acetech.ToolPackage.customwidget.tool.PropertyRegisterable;
+import com.china.acetech.ToolPackage.debug.DebugTool;
 
 
 public class BLEServiceManagerKeeper {
-
+ 
+	//*************text code*******************
+	public void writeData(byte[] order){
+		//這裡要去判斷連接是否存在。
+		BluetoothGattCharacteristic reveive = mRightSevice.getCharacteristic(BLEConfig.getReceiverUUID());
+		mBluetoothLeService.writeDataToCharacteristic(reveive, order);
+	}
+	
+	public void writeData(String order){
+		BluetoothGattCharacteristic reveive = mRightSevice.getCharacteristic(BLEConfig.getReceiverUUID());
+		mBluetoothLeService.writeDataToCharacteristic(reveive, order);
+	}
+	//****************************************
 	
 	//only used for match key window
 	public BLEServiceConnection getConnection(){
@@ -61,11 +71,14 @@ public class BLEServiceManagerKeeper {
 	protected BLERequestQueue mRequestQueue;
 
 	protected BaseSportInfoSync.ConnectedReturn mBaseSportsyncListener;
-	
+
 	protected PropertyChangeListener propertyListener = new PropertyChangeListener(){
 
 		@Override
 		public void propertyChange(PropertyChangeEvent event) {
+			if ( mBluetoothLeService == null )
+				return;
+			
 			if ( event.getPropertyName().equals(PropertyRegisterable.BLE_DISCONNECT_WITH_WRONG_DE) ){
 				mBluetoothLeService.disconnect();
 			}
@@ -74,15 +87,18 @@ public class BLEServiceManagerKeeper {
 				String value = (String)event.getNewValue();
 				if ( value.equals(PropertyRegisterable.START_SYNC_ALL ) )
 					startSyncToBLEDevice();
-				else if ( value.equals(PropertyRegisterable.START_SYNC_ONLY_SET ))
-					startSyncToBLEDevice_only_setting();
 				else
 					startSyncToBLEDevice();
 			}
 			
 			if ( event.getPropertyName().equals(PropertyRegisterable.BLE_CLOSED_CONNECT)){
-				mBluetoothLeService.disconnect();
-				mBluetoothLeService.close();
+				if ( mBluetoothLeService != null ){
+					mBluetoothLeService.disconnect();
+					//mBluetoothLeService.close();
+				}
+				
+				BLETool.getInstance().stopScanBLEDevice();
+				
 				if (MyApplication.getRegisterable() != null ){
 					MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_CONNECT_STATE, null, PropertyRegisterable.BLE_DISCONNECTED);
 				}
@@ -98,7 +114,7 @@ public class BLEServiceManagerKeeper {
 	public boolean isConnected(){
 		if ( mBluetoothLeService == null )
 			return false;
-		return (mBluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTED) && isMatch;
+		return (mBluetoothLeService.getConnectionState() == BluetoothLeService.STATE_CONNECTED);
 	}
 	
 	public int getConnectedState(){
@@ -106,87 +122,44 @@ public class BLEServiceManagerKeeper {
 			return BluetoothLeService.STATE_DISCONNECTED;
 		return mBluetoothLeService.getConnectionState();
 	}
-	
-	private boolean isMatch = false;
-	public void setisMatchKeyRight(boolean isright){
-		isMatch = isright;
-	}
-	
+		
 	public void saveMatchDeviceAddress(){
 		String address = mBluetoothLeService.getDeviceAddress();
-		//MySavedState.LocalSaveInfo.setDeviceAddress(address);
-	}
-	
-	public void startSyncToBLEDevice_only_setting(){
-		if ( mServiceConnection.isMatchKeyWindow() )
-			return;
-		
-		if ( !mRequestQueue.isEmpty() )
-			return;
-		
-//		mRequestQueue.addRequestToQueue(new DataInfoOrder());
-//
-//
-//		if ( MySavedState.SaveFlagOrInfo.isUserInfoReplaced() ){
-//			mRequestQueue.addRequestToQueue(new UserInfoOrder());
-//		}
-//
-//		if ( MySavedState.SaveFlagOrInfo.isAlarmListReplaced() ){
-//			mRequestQueue.addRequestToQueue(new AlarmClockOrder());
-//		}
-//		else if ( MySavedState.SaveFlagOrInfo.isTimeZoneReplaced() ){
-//			mRequestQueue.addRequestToQueue(new AlarmClockOrder());
-//		}
-//
-//		if ( MySavedState.SaveFlagOrInfo.isDeviceSettingReplaced() ){
-//			mRequestQueue.addRequestToQueue(new DeviceSettingOrder());
-//		}
-				
-		if ( !isConnected() ){//如果與藍牙設備並未建立連接，則先掃描設備
-			mServiceConnection.startScanDevice();
-			//mRequestQueue.addRequestToQueue(new MatchKeyOrder(), 0);
-		}
-		else{
-			mRequestQueue.process(null);
-		}
+		//MySavedState.LocalSaveFlagInfo.setDeviceAddress(address);
 	}
 	
 	/**
 	 * 根據所有資料的狀態來生成消息隊列，並發送第一個消息到
 	 */
 	public void startSyncToBLEDevice(){
-		if ( mServiceConnection.isMatchKeyWindow() )
-			return;
-		
 		if ( !mRequestQueue.isEmpty() )
 			return;
 		
 //		mRequestQueue.addRequestToQueue(new DataInfoOrder());
-//
-//
+//		
+//		
 //		if ( MySavedState.SaveFlagOrInfo.isUserInfoReplaced() ){
 //			mRequestQueue.addRequestToQueue(new UserInfoOrder());
 //		}
-//
+//		
 //		if ( MySavedState.SaveFlagOrInfo.isAlarmListReplaced() ){
 //			mRequestQueue.addRequestToQueue(new AlarmClockOrder());
 //		}
 //		else if ( MySavedState.SaveFlagOrInfo.isTimeZoneReplaced() ){
 //			mRequestQueue.addRequestToQueue(new AlarmClockOrder());
 //		}
-//
+//		
 //		if ( MySavedState.SaveFlagOrInfo.isDeviceSettingReplaced() ){
 //			mRequestQueue.addRequestToQueue(new DeviceSettingOrder());
 //		}
-		
-
-		//只有在有網絡連接的時候才可以點同步
-		ConnectivityManager connectMgr = (ConnectivityManager) MyApplication.getTopApp()
-		        .getSystemService(Context.CONNECTIVITY_SERVICE);
-		 
-		NetworkInfo info = connectMgr.getActiveNetworkInfo();
-		if ( info != null )
-			DebugTool.show("empty");//mRequestQueue.addRequestToQueue(new ReadRequestOrder());
+//		
+//		//只有在有網絡連接的時候才可以點同步
+//		ConnectivityManager connectMgr = (ConnectivityManager) MyApplication.getTopApp()
+//		        .getSystemService(Context.CONNECTIVITY_SERVICE);
+//		 
+//		NetworkInfo info = connectMgr.getActiveNetworkInfo();
+//		if ( info != null )
+//			mRequestQueue.addRequestToQueue(new ReadRequestOrder());
 		
 		if ( !isConnected() ){//如果與藍牙設備並未建立連接，則先掃描設備
 			mServiceConnection.startScanDevice();
@@ -209,6 +182,9 @@ public class BLEServiceManagerKeeper {
 
 		@Override
 		public void process(byte[] order) {
+			
+			mTimeOutController.startWork(order);
+			
 			if ( mRightSevice == null ){
 				mRightSevice = mBluetoothLeService.getSupportedGattService(BLEConfig.getSBServiceUUID());
 				if ( mRightSevice == null )
@@ -224,14 +200,15 @@ public class BLEServiceManagerKeeper {
 		}
 		
 	}
-	private boolean isBatterySet = false;
-	private boolean isFactoryRead = false;
-	private boolean isFactoryAlreadRead = false;
 	
 	protected class BroadcastSender implements BluetoothLeReceiver.TargetFragment{
 		@Override
 		public void handleStateMessage(Intent intent){//以後有很大機率需要把這個處理也抽象出來
 			String action = intent.getAction();
+			
+			if ( mBluetoothLeService == null )
+				return;
+			
 			if ( action.equals(BluetoothLeService.ACTION_GATT_CONNECTED)){//連接成功後打開手環的notify開關，並發送第一次匹配的消息
 				
 			}
@@ -239,7 +216,7 @@ public class BLEServiceManagerKeeper {
 				mBluetoothLeService.refreshDiscoverFlag();
 				
 				if ( MyApplication.getRegisterable() != null )
-					MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_SYNC_OVER,
+					MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_SYNC_OVER, 
 						null, null);
 				
 				if ( MyApplication.getRegisterable() != null )
@@ -250,38 +227,33 @@ public class BLEServiceManagerKeeper {
 				
 				UUID sb_service = BLEConfig.getSBServiceUUID();
 				mRightSevice = mBluetoothLeService.getSupportedGattService(sb_service);
-
-				isBatterySet = false;
-				isFactoryRead = false;
-				isFactoryAlreadRead = true;
 				
 				if ( mRightSevice == null ){
 					DebugTool.show("can't find service");
+					mBluetoothLeService.disconnect();
 				}
 				else{
-					BluetoothGattService battartService = mBluetoothLeService.getSupportedGattService(BLEConfig.getBattaryServiceUUID());
-					BluetoothGattCharacteristic battary = battartService.getCharacteristic(BLEConfig.getBattaryUUID());
-					mBluetoothLeService.setCharacteristicNotificationByDes(battary, true);
-					mBluetoothLeService.readCharacteristic(battary);
-
+					BluetoothGattCharacteristic character = mRightSevice.getCharacteristic(BLEConfig.getSenderUUID());
+					//mBluetoothLeService.setCharacteristicNotification(character, true);
+					mBluetoothLeService.setCharacteristicNotificationByDes(character, true);
 				}
 			}
 			else if ( action.equals(BluetoothLeService.ACTION_GATT_NOTIFITION_SETTED)){
-				BluetoothGattCharacteristic reveive = mRightSevice.getCharacteristic(BLEConfig.getReceiverUUID());
+				if (MyApplication.getRegisterable() != null ){
+					MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_CONNECT_STATE, null, PropertyRegisterable.BLE_CONNECTED);
+				}
 				
-//				if ( mIsNeedScanWhenCreate ){
-//					long firstmatch = 0xFFFF;
-//					MatchKeyOrder match = new MatchKeyOrder();
-//					byte[] send = match.getResultOrder(firstmatch);
-//					mBluetoothLeService.writeDataToCharacteristic(reveive, send);
+//				if ( MyApplication.getTopApp().getBondOperation() == AbsActivity.REQUEST_CODE_UPDATE_CONNECTION ){
+//					new Receiver_DFUModeOrder().sendMessage();
+//				}
+//				else if ( MyApplication.getTopApp().getBondOperation() == AbsActivity.REQUEST_CODE_UNBOND_BRACELET ){
+//					new Receiver_BondOrder().setBondOffMessgae();
 //				}
 //				else{
-//					long matchkey = MySavedState.SaveFlagOrInfo.getMatchKey();
-//					MatchKeyOrder match = new MatchKeyOrder();
-//					byte[] send = match.getResultOrder(matchkey);
-//					mBluetoothLeService.writeDataToCharacteristic(reveive, send);
+//				//並非只有bond_bracelet才會走這邊，正常流程也會這麼進行，具體分支處理在這個類進行
+//					//new Receiver_BondOrder().setBondOnMessgae();
+//					new Receiver_SerialNumberOrder().setMessage();
 //				}
-				
 				
 			}
 			else if ( action.equals(BluetoothLeService.ACTION_GATT_DESCRIPTOR_WRITE)){
@@ -290,81 +262,51 @@ public class BLEServiceManagerKeeper {
 					return;
 				}
 				
-				if ( !isBatterySet ){
-					BluetoothGattCharacteristic character = mRightSevice.getCharacteristic(BLEConfig.getSenderUUID());
-					//mBluetoothLeService.setCharacteristicNotification(character, true);
-					mBluetoothLeService.setCharacteristicNotificationByDes(character, true);
-					
-					isBatterySet = true;
-				}
-				else if ( !isFactoryRead ){
-					BluetoothGattService factoryService = mBluetoothLeService.getSupportedGattService(BLEConfig.getFactoryServiceUUID());
-					BluetoothGattCharacteristic factory = factoryService.getCharacteristic(BLEConfig.getFactoryUUID());
-					mBluetoothLeService.readCharacteristic(factory);
-					
-					isFactoryRead = true;
-					isFactoryAlreadRead = false;
-					
-					new Thread(){
-						public void run(){
-							try {
-								sleep(200);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							Intent sendIntent = new Intent(BluetoothLeService.ACTION_GATT_NOTIFITION_SETTED);
-							if ( mContext != null )
-								mContext.sendBroadcast(sendIntent);
-						}
-					}.start();
-					
-				}
-				else{
-					Intent sendIntent = new Intent(BluetoothLeService.ACTION_GATT_NOTIFITION_SETTED);
-					if ( mContext != null )
-						mContext.sendBroadcast(sendIntent);
-				}
+				Intent sendIntent = new Intent(BluetoothLeService.ACTION_GATT_NOTIFITION_SETTED);
+				if ( mContext != null )
+					mContext.sendBroadcast(sendIntent);
+				
+//				new Receiver_VersionOrder().sendMessage();
+//				new Receiver_BattaryOrder().sendMessage();
 			}
 			else if ( action.equals(BluetoothLeService.ACTION_GATT_ON_CHARACTERISTIC_WRITE) ){//消息發送完畢
 			}
 			else if ( action.equals(BluetoothLeService.ACTION_DATA_AVAILABLE)){//收到手環返回的消息，表示手環已做好匹配準備。剩下的事由用戶進行操作。
 				
 				byte[] order = (intent.getByteArrayExtra(BluetoothLeService.EXTRA_ASCII));
-//				StringBuffer buffer = new StringBuffer();
-//				for ( int  l=0; l < order.length; l++){
-//					buffer.append("  "+Integer.toHexString(order[l]&0xFF));
-//				}
-//				System.out.println(buffer.toString());
+				StringBuffer buffer = new StringBuffer();
+				for ( int  l=0; l < order.length; l++){
+					buffer.append("  "+Integer.toHexString(order[l]&0xFF));
+				}
+				DebugTool.show(buffer.toString());
+				
 				
 //				if ( ReceiveDataOrder.isRealTimeOrder(order)){
 //					;//如果是實時數據，在不保存的情況下刷新界面。需要注意的是用戶輸入的運動log會影響到顯示，所以實時數據在刷新時需要處理
-//
+//					
 //					RealTimeDataProcesser.getInstance().processForOrder(order);
-//					if (SBApplication.getRegisterable() != null ){
-//						SBApplication.getRegisterable().firePropertyChange(PropertyRegisterable.ACTIVITY_REFRESH, null, PropertyRegisterable.REFRESH_MAINLIST);
+//					if (MyApplication.getRegisterable() != null ){
+//						MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.ACTIVITY_REFRESH, null, PropertyRegisterable.REFRESH_MAINLIST);
 //					}
 //				}
 //				else if ( ReceiveDataOrder.isBattaryOrder(order) ){
 //					DebugTool.show("battary number:" + order[1]);
 //					MySavedState.LocalSaveInfo.setBattaryInfo(order[1]);
-//					if (SBApplication.getRegisterable() != null ){
-//						SBApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_BATTARY_CALLBACK, 0, order[1]);
+//					if (MyApplication.getRegisterable() != null ){
+//						MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_BATTARY_CALLBACK, 0, order[1]);
 //					}
 //				}
-//				else if ( !isFactoryAlreadRead &&  isFactoryRead ){
-//					String factoryInfo = new String(order);
-//					MySavedState.LocalSaveInfo.setFactoryInfo(factoryInfo);
-//					if ( SBApplication.getRegisterable() != null ){
-//						SBApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_FACTORY_INFO_REFRESH, "", "1");
-//					}
-//					isFactoryAlreadRead = true;
-//				}
-//				else{//如果不是實時數據，則交給隊列(或者說是隊首的order)來決定到底下一步該如何處理。
-//					mRequestQueue.process(order);
-//				}
+//				else
+				{//如果不是實時數據，則交給隊列(或者說是隊首的order)來決定到底下一步該如何處理。
+
+					mTimeOutController.endWork();//end必须放在process之前，因为process已经发送了下一条指令
+					mRequestQueue.process(order);
+					
+					//mOrderListener.processForOrder(order);
+
+				}				
 			}
 			else if (action.equals(BluetoothLeService.ACTION_GATT_DISCONNECTED)){
-				MyApplication.getBLEManagerWorker().setisMatchKeyRight(false);
 				
 				if (mRequestQueue != null ){
 					mRequestQueue.clearQueue();
@@ -373,26 +315,24 @@ public class BLEServiceManagerKeeper {
 					MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_CONNECT_STATE, null, PropertyRegisterable.BLE_DISCONNECTED);
 				}
 				
-				mBluetoothLeService.close();
+				//mBluetoothLeService.close();
 			}
 		}
 	}
 	
-	Activity matchKeyWindowActivity;
+	//--------------------------------OrderListener-------------------------------
+	//把order的處理轉移到另一個類，優化結構代碼
+	//SenderOrderListener mOrderListener =  new SenderOrderListener();
+	//----------------------------------------------------------------------------
 	
-	/**
-	 * 這個函數是matchkeywindow專用，因為無法解耦。
-	 * @param activity
-	 */
-	public void setMatchKeyWindowActivity(Activity activity ){
-		matchKeyWindowActivity = activity;
-	}
 	
+	//----------------------------------------------------------------------------
 	public int count = 0;
 	private boolean mIsTryConnecting = false;
 	public boolean isTryConnecting(){
 		return mIsTryConnecting;
 	}
+	//----------------------------------------------------------------------------
 	
 	protected class DeviceScanProcsser implements BLETool.DeviceScan{
 		//private Handler mHandler = new Handler();
@@ -416,40 +356,6 @@ public class BLEServiceManagerKeeper {
 		public void ScanFail(){
 			mRequestQueue.clearQueue();
 			DebugTool.show("connect fail");
-			
-			//matchkeywindow專用，因為無法解耦。
-			if ( mServiceConnection.isMatchKeyWindow() ){
-				if ( matchKeyWindowActivity != null ){
-					if ( matchKeyWindowActivity != null ){
-						matchKeyWindowActivity.runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								new AlertDialog.Builder(matchKeyWindowActivity )
-								.setTitle(R.string.dialog_search_device_fail_title)
-								.setMessage(R.string.dialog_search_device_fail_message)
-								.setPositiveButton(R.string.dialog_yes,new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										mServiceConnection.startScanDevice();
-									}
-								})
-								.setNegativeButton(R.string.dialog_no,new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										matchKeyWindowActivity.finish();
-									}
-								})
-								.show();
-								
-							}
-						});
-					}
-				}
-			}
-			
 			
 			mIsTryConnecting = false;
 			
@@ -482,25 +388,6 @@ public class BLEServiceManagerKeeper {
 
 		@Override
 		public void startScanDevice() {	
-//			ActionCallback callback = new ActionCallback() {
-//    			
-//    			@Override
-//    			public Context getContext() {
-//    				return mContext;
-//    			}
-//    			
-//    			@Override
-//    			public void clear() {
-//    			}
-//    			
-//    			@Override
-//    			public void ActionAfterEnableBluetooth() {
-//    				
-//    				//藍牙掃描開始以後彈出對話框。這裡不能使用彈出式的對話框，需要在節目中顯示進度提示
-//    			}
-//    		};
-//    		
-//            EnableBluetooth.enableBluetooth(callback);
 			if ( mBluetoothLeService.getConnectionState() != BluetoothLeService.STATE_DISCONNECTED )
 				return;
 //			if ( !isMatchKeyWindow() ){
@@ -520,6 +407,79 @@ public class BLEServiceManagerKeeper {
 			}
 		}
 	};
+	
+	protected TimeOut mTimeOutController = new TimeOut();
+	
+	protected class TimeOut{
+		byte[] tempOrder;
+		Timer timer;
+		TimeOutTask mTask;
+		
+		public boolean isWork(){
+			return timer != null;
+		}
+		
+		public void close(){
+			if ( timer != null ){
+				timer.cancel();
+			}
+			mTask = null;
+			
+		}
+		public void startWork(byte[] order ){
+			DebugTool.show("TimeOut start");
+			tempOrder = order.clone();
+			if ( timer != null ){
+				timer.cancel();
+				timer = null;
+				mTask = null;
+			}
+			
+			timer = new Timer("BLE_TimeOut");
+			mTask = new TimeOutTask();
+			timer.schedule(mTask, 10000, 10000);
+		}
+		
+		public void endWork(){
+			DebugTool.show("TimeOut end");
+			if ( timer != null ){
+				timer.cancel();
+				timer = null;
+			}
+			
+		}
+		
+		public void resendOrder(){
+			DebugTool.show("TimeOut resend order");
+			if ( mRightSevice == null ){
+				mRightSevice = mBluetoothLeService.getSupportedGattService(BLEConfig.getSBServiceUUID());
+				if ( mRightSevice == null )
+					return;
+			}
+			BluetoothGattCharacteristic reveive = mRightSevice.getCharacteristic(BLEConfig.getReceiverUUID());
+			mBluetoothLeService.writeDataToCharacteristic(reveive, tempOrder);
+		}
+		
+		private class TimeOutTask extends TimerTask{
+			
+			private int count = 0;
+			
+			@Override
+			public void run() {
+				if ( count == 3 ){
+					DebugTool.show("resend fail, exit");
+					if ( MyApplication.getRegisterable() != null )
+						MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_DISCONNECT_WITH_WRONG_DE, null, null);
+					mTimeOutController.close();
+				}
+				resendOrder();
+				count++;
+			}
+		}
+	}
+
+
+
 
 	/**
 	 * 在数据同步过程中，需要中断并向网络发送同步请求，并根据结果来进行下一步动作
@@ -534,6 +494,6 @@ public class BLEServiceManagerKeeper {
 //			order[1] = (byte)(isSuccessful ? DataReceiveOrder.WEB_SYNC_SUCCESS: DataReceiveOrder.WEB_SYNC_FAIL);
 			mRequestQueue.process(order);
 		}
-		
+
 	}
 }

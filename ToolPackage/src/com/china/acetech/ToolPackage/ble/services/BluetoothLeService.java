@@ -1,6 +1,7 @@
 package com.china.acetech.ToolPackage.ble.services;
 
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,44 +41,45 @@ public class BluetoothLeService extends Service{
 	private BluetoothAdapter mBluetoothAdapter;
 	private BluetoothGatt mBluetoothGatt;
 	private String mBluetoothDeviceAddress;
-	
+	private String mBluetoothDeviceName;
+
 	private int mConnectionState = STATE_DISCONNECTED;
 
 	public static final int STATE_DISCONNECTED = 0;
 	public static final int STATE_CONNECTING = 1;
 	public static final int STATE_CONNECTED = 2;
-	
-	
-	public final static String ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED";
-	public final static String ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED";
-	public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.example.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
-	public static final String ACTION_GATT_SERVICES_DISCOVERED_FAIL = "com.billy.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED_FAIL";
-	public final static String ACTION_DATA_AVAILABLE = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE";
-	public final static String ACTION_DATA_AVAILABLE_FAIL = "com.example.bluetooth.le.ACTION_DATA_AVAILABLE_FAIL";
-	public final static String ACTION_GATT_CONNECT_FAIL = "com.example.bluetooth.le.ACTION_GATT_CONNECT_FAIL";
-	public static final String ACTION_GATT_READ_REMO_RSSI = "com.billy.bluetooth.le.ACTION_GATT_READ_REMO_RSSI";
+
+
+	public final static String ACTION_GATT_CONNECTED = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_CONNECTED";
+	public final static String ACTION_GATT_DISCONNECTED = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_DISCONNECTED";
+	public final static String ACTION_GATT_SERVICES_DISCOVERED = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED";
+	public static final String ACTION_GATT_SERVICES_DISCOVERED_FAIL = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_SERVICES_DISCOVERED_FAIL";
+	public final static String ACTION_DATA_AVAILABLE = "com.beta.app.healthcourse.bluetooth.le.ACTION_DATA_AVAILABLE";
+	public final static String ACTION_DATA_AVAILABLE_FAIL = "com.beta.app.healthcourse.bluetooth.le.ACTION_DATA_AVAILABLE_FAIL";
+	public final static String ACTION_GATT_CONNECT_FAIL = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_CONNECT_FAIL";
+	public static final String ACTION_GATT_READ_REMO_RSSI = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_READ_REMO_RSSI";
 	public static final String ACTION_GATT_ON_CHARACTERISTIC_WRITE = "com.billy.bluetooth.le.ACTION_GATT_ON_CHARACTERISTIC_WRITE";
-	
-	public static final String ACTION_GATT_NOTIFITION_SETTED = "com.billy.bluetooth.le.ACTION_GATT_NOTIFITION_SETTED";
-	public static final String ACTION_GATT_BATTARY_READ = "com.billy.bluetooth.le.ACTION_BATTARY_READ";
-	
-	public static final String ACTION_GATT_FACTORY_INFO_READ = "com.billy.bluetooth.le.ACTION_GATT_FACTORY_INFO_READ";
-	
-	public static final String ACTION_GATT_DESCRIPTOR_WRITE = "com.billy.bluetooth.le.ACTION_GATT_DESCRIPTOR_WRITE";
-	
-	public static final String EXTRA_ASCII = "com.billy.bluetooth.le.EXTRA_ASCII";
-	public static final String EXTRA_DATA = "com.billy.bluetooth.le.EXTRA_DATA";
-	public static final String EXTRA_DECIMAL = "com.billy.bluetooth.le.EXTRA_DECIMAL";
-	public static final String EXTRA_HEX = "com.billy.bluetooth.le.EXTRA_HEX";
-	public static final String EXTRA_RSSI = "com.billy.bluetooth.le.EXTRA_RSSI";
-	public static final String EXTRA_STATUS = "com.billy.bluetooth.le.EXTRA_STATUS";
-	
-	
+
+	public static final String ACTION_GATT_NOTIFITION_SETTED = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_NOTIFITION_SETTED";
+	public static final String ACTION_GATT_BATTARY_READ = "com.beta.app.healthcourse.bluetooth.le.ACTION_BATTARY_READ";
+
+	public static final String ACTION_GATT_FACTORY_INFO_READ = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_FACTORY_INFO_READ";
+
+	public static final String ACTION_GATT_DESCRIPTOR_WRITE = "com.beta.app.healthcourse.bluetooth.le.ACTION_GATT_DESCRIPTOR_WRITE";
+
+	public static final String EXTRA_ASCII = "com.beta.app.healthcourse.bluetooth.le.EXTRA_ASCII";
+	public static final String EXTRA_DATA = "com.beta.app.healthcourse.bluetooth.le.EXTRA_DATA";
+	public static final String EXTRA_DECIMAL = "com.beta.app.healthcourse.bluetooth.le.EXTRA_DECIMAL";
+	public static final String EXTRA_HEX = "com.beta.app.healthcourse.bluetooth.le.EXTRA_HEX";
+	public static final String EXTRA_RSSI = "com.beta.app.healthcourse.bluetooth.le.EXTRA_RSSI";
+	public static final String EXTRA_STATUS = "com.beta.app.healthcourse.bluetooth.le.EXTRA_STATUS";
+
+
 	private static final int DISCOVER_UNUSED = -1;
 	private static final int DISCOVER_START = 1;
 	private static final int DISCOVER_END = 2;
 	private int serviceDiscoverFlag = DISCOVER_UNUSED;
-	
+
 	public class LocalBinder extends Binder {
 		public BluetoothLeService getService() {
 			return BluetoothLeService.this;
@@ -103,10 +105,10 @@ public class BluetoothLeService extends Service{
 	}
 
 	private final IBinder mBinder = new LocalBinder();
-	
+
 	/**
 	 * Initializes a reference to the local Bluetooth adapter.
-	 * 
+	 *
 	 * @return Return true if the initialization is successful.
 	 */
 	public boolean initialize() {
@@ -130,21 +132,33 @@ public class BluetoothLeService extends Service{
 
 		return true;
 	}
-	
+
 	public int getConnectionState(){
 		return mConnectionState;
 	}
-	
+
 	public String getDeviceAddress(){
 		return mBluetoothDeviceAddress;
 	}
-	
+
+	public String getDeviceName(){
+		return mBluetoothDeviceName;
+	}
+
+	public String getLocalDeviceAddress(){
+		String res = null;
+		if (mBluetoothAdapter != null ){
+			res = mBluetoothAdapter.getAddress();
+		}
+		return res;
+	}
+
 	/**
 	 * Connects to the GATT server hosted on the Bluetooth LE device.
-	 * 
+	 *
 	 * @param address
 	 *            The device address of the destination device.
-	 * 
+	 *
 	 * @return Return true if the connection is initiated successfully. The
 	 *         connection result is reported asynchronously through the
 	 *         {@code BluetoothGattCallback#onConnectionStateChange(android.bluetooth.BluetoothGatt, int, int)}
@@ -157,7 +171,7 @@ public class BluetoothLeService extends Service{
 		}
 
 		// Previously connected device. Try to reconnect. (珂蟀諉腔扢掘﹝ 郭彸笭陔蟀諉)
-		
+
 		//由於連接上一次舊設備會導致消息缺失，所以不再進行复連，以後可以對消息序列進行改進
 		//复連時執行mBluetoothGatt.connect()後並未有BLE消息發送，也無法找到需要的Service。
 		if (mBluetoothDeviceAddress != null
@@ -171,7 +185,7 @@ public class BluetoothLeService extends Service{
 //			} else {
 //				return false;
 //			}
-//			
+//
 		}
 
 		final BluetoothDevice device = mBluetoothAdapter
@@ -186,13 +200,15 @@ public class BluetoothLeService extends Service{
 		mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
 		DebugTool.show("Trying to create a new connection.");
 		mBluetoothDeviceAddress = address;
+		mBluetoothDeviceName = device.getName();
+
 		mConnectionState = STATE_CONNECTING;
 		if ( MyApplication.getRegisterable() != null ){
 			MyApplication.getRegisterable().firePropertyChange(PropertyRegisterable.BLE_CONNECT_STATE, null, PropertyRegisterable.BLE_CONNECTING);
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Disconnects an existing connection or cancel a pending connection. The
 	 * disconnection result is reported asynchronously through the
@@ -210,28 +226,58 @@ public class BluetoothLeService extends Service{
 			broadcastUpdate(ACTION_GATT_DISCONNECTED);
 		}
 		mConnectionState = STATE_DISCONNECTED;
-		
+
 		serviceDiscoverFlag = DISCOVER_UNUSED;
 	}
-	
+
 	/**
 	 * After using a given BLE device, the app must call this method to ensure
 	 * resources are released properly.
 	 */
 	public void close(){
+		//這裡強制關閉的話。有可能會導致後續收不到disconnect消息
 		if ( mBluetoothGatt != null)
 			mBluetoothGatt.close();
 		DebugTool.show("BluetoothGatt is closed");
 		mConnectionState = STATE_DISCONNECTED;
 	}
-	
-	
+
+	/**
+	 * Clears the device cache. After uploading new firmware the DFU target will have other services than before.
+	 *
+	 * @param gatt  the GATT device to be refreshed
+	 * @param force <code>true</code> to force the refresh
+	 */
+	private void refreshDeviceCache(final BluetoothGatt gatt, final boolean force) {
+		/*
+		 * If the device is bonded this is up to the Service Changed characteristic to notify Android that the services has changed.
+		 * There is no need for this trick in that case.
+		 * If not bonded, the Android should not keep the services cached when the Service Changed characteristic is present in the target device database.
+		 * However, due to the Android bug (still exists in Android 5.0.1), it is keeping them anyway and the only way to clear services is by using this hidden refresh method.
+		 */
+		if (force || gatt.getDevice().getBondState() == BluetoothDevice.BOND_NONE) {
+			/*
+			 * There is a refresh() method in BluetoothGatt class but for now it's hidden. We will call it using reflections.
+			 */
+			try {
+				final Method refresh = gatt.getClass().getMethod("refresh");
+				if (refresh != null) {
+					final boolean success = (Boolean) refresh.invoke(gatt);
+					DebugTool.show("Refreshing result: " + success);
+				}
+			} catch (Exception e) {
+				DebugTool.show("An exception occurred while refreshing device\n" + e);
+			}
+		}
+	}
+
+
 	/**
 	 * Request a read on a given {@code BluetoothGattCharacteristic}. The read
 	 * result is reported asynchronously through the
 	 * {@code BluetoothGattCallback#onCharacteristicRead(android.bluetooth.BluetoothGatt, android.bluetooth.BluetoothGattCharacteristic, int)}
 	 * callback.
-	 * 
+	 *
 	 * @param characteristic
 	 *            The characteristic to read from.
 	 */
@@ -242,31 +288,32 @@ public class BluetoothLeService extends Service{
 		}
 		mBluetoothGatt.readCharacteristic(characteristic);
 	}
-	
+
 	/**
 	 * Enables or disables notification on a give characteristic.
-	 * 
+	 *
 	 * @param characteristic
 	 *            Characteristic to act on.
 	 * @param enable
 	 *            If true, enable notification. False otherwise.
 	 */
-	
+
 	public boolean setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enable ){
 		return this.mBluetoothGatt.setCharacteristicNotification(characteristic, enable);
 	}
-	
+
 	//有官方的API可以使用。不用自己寫。不行，原生的有問題，設置不成功
 	public boolean setCharacteristicNotificationByDes(BluetoothGattCharacteristic characteristic, boolean enable ){
-		
+
 		if ((this.mBluetoothAdapter == null) || (this.mBluetoothGatt == null)){
 			DebugTool.show("BluetoothAdapter not initialized");
 			return false;
 		}
 		if ( mBluetoothGatt.setCharacteristicNotification(characteristic, enable) ){
 			BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(CharacteristicArrributes.CLIENT_CHARACTERISTIC_CONFIG));
-		    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-		    DebugTool.show(characteristic.getUuid().toString() + " is notify: " + mBluetoothGatt.writeDescriptor(descriptor));
+			descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+			mBluetoothGatt.writeDescriptor(descriptor);
+			DebugTool.show(characteristic.getUuid().toString() + " is notify: " + mBluetoothGatt.writeDescriptor(descriptor));
 		    /*
 			 * // This is specific to Heart Rate Measurement. if
 			 * (UUID_HEART_RATE_MEASUREMENT.equals(characteristic.getUuid())) {
@@ -282,18 +329,18 @@ public class BluetoothLeService extends Service{
 		}
 		return true;
 	}
-	
-	
+
+
 	public void writeDataToCharacteristic(BluetoothGattCharacteristic characteristic, String hexString){
 		writeDataToCharacteristic(characteristic, DataFormatTransf.hexStringToByteArray2(hexString));
 
 	}
-	
+
 	public void writeDataToCharacteristic(BluetoothGattCharacteristic characteristic, byte[] order){
 		characteristic.setValue(order);
 //	    switch (characteristic.getProperties())
 //	    {
-//	    
+//
 //	    case BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE:
 //	    	characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 //	    case BluetoothGattCharacteristic.PROPERTY_WRITE:
@@ -307,29 +354,29 @@ public class BluetoothLeService extends Service{
 		this.mBluetoothGatt.writeCharacteristic(characteristic);
 
 	}
-	
+
 	/**
 	 * Read the RSSI for a connected remote device.
 	 * */
 	public Boolean readRemoteRssi()
-	  {
-	    return Boolean.valueOf(mBluetoothGatt.readRemoteRssi());
-	  }
-	
+	{
+		return Boolean.valueOf(mBluetoothGatt.readRemoteRssi());
+	}
+
 	/**
 	 * Retrieves a list of supported GATT services on the connected device. This
 	 * should be invoked only after {@code BluetoothGatt#discoverServices()}
 	 * completes successfully.
-	 * 
+	 *
 	 * @return A {@code List} of supported services.
 	 */
 	public List<BluetoothGattService> getSupportedGattServices()
 	{
 		if (this.mBluetoothGatt == null)
-	    	return null;
-	    return this.mBluetoothGatt.getServices();
+			return null;
+		return this.mBluetoothGatt.getServices();
 	}
-	
+
 	/**
 	 * Retrieve the GATT service by given UUID
 	 * @param uuid
@@ -338,61 +385,61 @@ public class BluetoothLeService extends Service{
 	public BluetoothGattService getSupportedGattService(UUID uuid)
 	{
 		if (this.mBluetoothGatt == null)
-	    	return null;
-	    return this.mBluetoothGatt.getService(uuid);
+			return null;
+		return this.mBluetoothGatt.getService(uuid);
 	}
-	
+
 	public int getConnectState(){
 		return mConnectionState;
-		
+
 	}
-	
+
 	public boolean getServiceList(ArrayList<HashMap<String, Object>> serviceList,
-			ArrayList<ArrayList<HashMap<String, Object>>> childList){
+								  ArrayList<ArrayList<HashMap<String, Object>>> childList){
 		List<BluetoothGattService> list = getSupportedGattServices();
 		if ( list == null )
 			return false;
-		
-    	
-    	
-	    for ( BluetoothGattService blueService: list){
-		    HashMap<String,Object> tem_map = new HashMap<String, Object>();
-		    String tem_uuid = blueService.getUuid().toString();
-		    tem_map.put("DEVICE_UUID", tem_uuid);
-		    tem_map.put("DEVICE_NAME", ServiceArrributes.lookup(tem_uuid, tem_uuid));
-		    tem_map.put("DEVICE_SERVICE", blueService);
-		    serviceList.add(tem_map);
-		    
-		    ArrayList<HashMap<String,Object>> child = new ArrayList<HashMap<String,Object>>();
-		    
-		    List<BluetoothGattCharacteristic> charlist = blueService.getCharacteristics();
-		    for ( BluetoothGattCharacteristic blueCharacteristic: charlist){
-		    	HashMap<String, Object> childmap = new HashMap<String, Object>();
-		    	String child_uuid = blueCharacteristic.getUuid().toString();
-		        childmap.put("DEVICE_NAME", CharacteristicArrributes.lookup(child_uuid, child_uuid));
-		        childmap.put("DEVICE_UUID", child_uuid);
-		        childmap.put("DEVICE_CHARACTERISTIC", blueCharacteristic);
-		        childmap.put("DEVICE_PROPERTIES", Integer.valueOf(blueCharacteristic.getProperties()));
-		        
-		        child.add(childmap);
-		    }
-		    childList.add(child);
-	    }
-	    
-	    return true;
+
+
+
+		for ( BluetoothGattService blueService: list){
+			HashMap<String,Object> tem_map = new HashMap<String, Object>();
+			String tem_uuid = blueService.getUuid().toString();
+			tem_map.put("DEVICE_UUID", tem_uuid);
+			tem_map.put("DEVICE_NAME", ServiceArrributes.lookup(tem_uuid, tem_uuid));
+			tem_map.put("DEVICE_SERVICE", blueService);
+			serviceList.add(tem_map);
+
+			ArrayList<HashMap<String,Object>> child = new ArrayList<HashMap<String,Object>>();
+
+			List<BluetoothGattCharacteristic> charlist = blueService.getCharacteristics();
+			for ( BluetoothGattCharacteristic blueCharacteristic: charlist){
+				HashMap<String, Object> childmap = new HashMap<String, Object>();
+				String child_uuid = blueCharacteristic.getUuid().toString();
+				childmap.put("DEVICE_NAME", CharacteristicArrributes.lookup(child_uuid, child_uuid));
+				childmap.put("DEVICE_UUID", child_uuid);
+				childmap.put("DEVICE_CHARACTERISTIC", blueCharacteristic);
+				childmap.put("DEVICE_PROPERTIES", Integer.valueOf(blueCharacteristic.getProperties()));
+
+				child.add(childmap);
+			}
+			childList.add(child);
+		}
+
+		return true;
 	}
 
-	
+
 	private void broadcastUpdate(String message){
 		final Intent intent = new Intent(message);
 		sendBroadcast(intent);
 	}
-	private void broadcastUpdate(String message, 
-			final BluetoothGattCharacteristic characteristic){
+	private void broadcastUpdate(String message,
+								 final BluetoothGattCharacteristic characteristic){
 		Intent intent = new Intent(message);
-	    byte[] arrayOfByte = characteristic.getValue();
-	    StringBuilder buffer;
-	    int i;
+		byte[] arrayOfByte = characteristic.getValue();
+		StringBuilder buffer;
+		int i;
 		if ((arrayOfByte != null) && (arrayOfByte.length > 0)) {
 			buffer = new StringBuilder(arrayOfByte.length);
 			i = arrayOfByte.length;
@@ -414,7 +461,7 @@ public class BluetoothLeService extends Service{
 				}
 				arrayOfByte = battary;
 			}
-			
+
 			intent.putExtra(EXTRA_ASCII, arrayOfByte);
 			try {
 				int number = Integer.parseInt(buffer.toString().replaceAll("\\s+", ""), 16);
@@ -422,29 +469,29 @@ public class BluetoothLeService extends Service{
 			}catch (NumberFormatException e){
 			}
 			sendBroadcast(intent);
-	    }	
+		}
 	}
 	private void broadcastUpdate(String message, int rssiOrstatus){
 		Intent intent = new Intent(message);
 		intent.putExtra(EXTRA_RSSI, String.valueOf(rssiOrstatus));
 		sendBroadcast(intent);
 	}
-	
+
 	private void broadcastUpdate(String message, BluetoothGattDescriptor descriptor, int status){
 		Intent intent = new Intent(message);
 		intent.putExtra(EXTRA_STATUS, status);
 		sendBroadcast(intent);
 	}
-	
-	
-	
+
+
+
 	// Implements callback methods for GATT events that the app cares about. For
 	// example,
 	// connection change and services discovered.
 	private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
 		@Override
 		public void onConnectionStateChange(BluetoothGatt gatt, int status,
-				int newState) {
+											int newState) {
 			String intentAction;
 			DebugTool.show("=======status:" + status);
 			if (newState == BluetoothProfile.STATE_CONNECTED) {
@@ -455,7 +502,7 @@ public class BluetoothLeService extends Service{
 				DebugTool.show("Attempting to start service discovery:"
 						+ mBluetoothGatt.discoverServices());
 				broadcastUpdate(intentAction);
-				
+
 				serviceDiscoverFlag = DISCOVER_START;
 				serviceDiscoverSafelyTimeOut();
 
@@ -464,43 +511,46 @@ public class BluetoothLeService extends Service{
 				mConnectionState = STATE_DISCONNECTED;
 				DebugTool.show("Disconnected from GATT server.");
 				broadcastUpdate(intentAction);
+				refreshDeviceCache(gatt, false);
+				gatt.close();
+				mConnectionState = STATE_DISCONNECTED;
 			}
 		}
 
 		@Override
 		public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-			
+
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
-			} 
+			}
 			else {
 				DebugTool.show("onServicesDiscovered received: " + status);
 				broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED_FAIL);
 			}
-			
+
 			serviceDiscoverFlag = DISCOVER_END;
 		}
 
 		@Override
 		public void onCharacteristicRead(BluetoothGatt gatt,
-				BluetoothGattCharacteristic characteristic, int status) {
+										 BluetoothGattCharacteristic characteristic, int status) {
 			DebugTool.show("onCharacteristicRead");
 			if (status == BluetoothGatt.GATT_SUCCESS) {
 				broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
 			}
 		}
-		
+
 		public void onCharacteristicWrite(BluetoothGatt gatt,
-				BluetoothGattCharacteristic characteristic, int status) {
+										  BluetoothGattCharacteristic characteristic, int status) {
 			DebugTool.show("--------write success----- status:" + status);
 			DebugTool.show("CharacteristicWrite " + BluetoothGATTStatus.lookup(new StringBuilder().append(status).toString(), new StringBuilder().append(status).toString()));
-		    //broadcastUpdate(ACTION_GATT_ON_CHARACTERISTIC_WRITE, status);
+			//broadcastUpdate(ACTION_GATT_ON_CHARACTERISTIC_WRITE, status);
 			broadcastUpdate(ACTION_GATT_ON_CHARACTERISTIC_WRITE);
 		};
-		
+
 		@Override
 		public void onCharacteristicChanged(BluetoothGatt gatt,
-				BluetoothGattCharacteristic characteristic) {
+											BluetoothGattCharacteristic characteristic) {
 			if (DebugTool.isDebug() && characteristic.getValue() != null) {
 
 				//當前定義中，手環所返回的數據都是以byte數組形式存在，所以在打印信息時也採用byte形式。
@@ -518,7 +568,7 @@ public class BluetoothLeService extends Service{
 
 		@Override
 		public void onDescriptorWrite(BluetoothGatt gatt,
-				BluetoothGattDescriptor descriptor, int status) {
+									  BluetoothGattDescriptor descriptor, int status) {
 
 			DebugTool.show("onDescriptorWriteonDescriptorWrite = " + status
 					+ ", descriptor =" + descriptor.getUuid().toString());
@@ -531,26 +581,26 @@ public class BluetoothLeService extends Service{
 			broadcastUpdate(ACTION_GATT_READ_REMO_RSSI, rssi);
 		}
 
-		
+
 	};
-	
+
 	//part of discover service timer control
 	public void refreshDiscoverFlag(){
 		serviceDiscoverFlag = DISCOVER_UNUSED;
 	}
-	
+
 	private void serviceDiscoverSafelyTimeOut(){
-		new Timer().schedule(new TimerTask(){
+		new Timer("DiscoverTimeOut").schedule(new TimerTask(){
 
 			@Override
 			public void run() {
 				if ( serviceDiscoverFlag == DISCOVER_START ){
 					broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED_FAIL);
 				}
-				
+
 				serviceDiscoverFlag = DISCOVER_END;
 			}
-			
+
 		}, 10*1000);
 	}
 }
