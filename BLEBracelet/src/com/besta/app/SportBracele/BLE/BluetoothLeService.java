@@ -1,6 +1,7 @@
 package com.besta.app.SportBracele.BLE;
 
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +131,7 @@ public class BluetoothLeService extends Service{
 			return false;
 		}
 
-		// Previously connected device. Try to reconnect. (ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Óµï¿½ï¿½è±¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+		// Previously connected device. Try to reconnect. (ÏÈÇ°Á¬½ÓµÄÉè±¸¡£ ³¢ÊÔÖØÐÂÁ¬½Ó)
 		if (mBluetoothDeviceAddress != null
 				&& address.equals(mBluetoothDeviceAddress)
 				&& mBluetoothGatt != null) {
@@ -180,12 +181,41 @@ public class BluetoothLeService extends Service{
 	/**
 	 * After using a given BLE device, the app must call this method to ensure
 	 * resources are released properly.
+	 * 
+	 * warning!! close directly maybe cause gatt info leak. instead to disconnect gatt(call refreshDeviceCache) 
 	 */
 	public void close(){
 		mBluetoothGatt.close();
 	}
 	
-	
+	/**
+	 * Clears the device cache. After uploading new firmware the DFU target will have other services than before.
+	 *
+	 * @param gatt  the GATT device to be refreshed
+	 * @param force <code>true</code> to force the refresh
+	 */
+	private void refreshDeviceCache(final BluetoothGatt gatt, final boolean force) {
+		/*
+		 * If the device is bonded this is up to the Service Changed characteristic to notify Android that the services has changed.
+		 * There is no need for this trick in that case.
+		 * If not bonded, the Android should not keep the services cached when the Service Changed characteristic is present in the target device database.
+		 * However, due to the Android bug (still exists in Android 5.0.1), it is keeping them anyway and the only way to clear services is by using this hidden refresh method.
+		 */
+		if (force || gatt.getDevice().getBondState() == BluetoothDevice.BOND_NONE) {
+			/*
+			 * There is a refresh() method in BluetoothGatt class but for now it's hidden. We will call it using reflections.
+			 */
+			try {
+				final Method refresh = gatt.getClass().getMethod("refresh");
+				if (refresh != null) {
+					final boolean success = (Boolean) refresh.invoke(gatt);
+					Debug.show("Refreshing result: " + success);
+				}
+			} catch (Exception e) {
+				Debug.show("An exception occurred while refreshing device\n" + e);
+			}
+		}
+	}
 	/**
 	 * Request a read on a given {@code BluetoothGattCharacteristic}. The read
 	 * result is reported asynchronously through the
@@ -211,13 +241,13 @@ public class BluetoothLeService extends Service{
 	 * @param enabled
 	 *            If true, enable notification. False otherwise.
 	 */
-	public boolean setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enabled ){
+	public boolean setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enable ){
 		
 		if ((this.mBluetoothAdapter == null) || (this.mBluetoothGatt == null)){
 			Debug.show("BluetoothAdapter not initialized");
 			return false;
 		}
-		if ( mBluetoothGatt.setCharacteristicNotification(characteristic, enabled) ){
+		if ( mBluetoothGatt.setCharacteristicNotification(characteristic, enable) ){
 			BluetoothGattDescriptor descriptor = characteristic.getDescriptor(UUID.fromString(CharacteristicArrributes.CLIENT_CHARACTERISTIC_CONFIG));
 		    descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
 		    mBluetoothGatt.writeDescriptor(descriptor);
@@ -380,6 +410,8 @@ public class BluetoothLeService extends Service{
 				mConnectionState = STATE_DISCONNECTED;
 				Debug.show("Disconnected from GATT server.");
 				broadcastUpdate(intentAction);
+				refreshDeviceCache(gatt, false);
+				gatt.close();
 			}
 		}
 

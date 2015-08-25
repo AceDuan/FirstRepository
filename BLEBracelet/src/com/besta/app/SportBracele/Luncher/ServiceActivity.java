@@ -171,7 +171,7 @@ public class ServiceActivity extends Activity {
 	    
 	    if ( mBluetoothLeService != null ){
 		mBluetoothLeService.disconnect();
-		mBluetoothLeService.close();
+		//mBluetoothLeService.close();
 		unbindService(mServiceConnection);
 		mBluetoothLeService = null;
 	    }
@@ -221,7 +221,8 @@ public class ServiceActivity extends Activity {
 			invalidateOptionsMenu();
 			break;
 		case R.id.menu_disconnect:
-			mBluetoothLeService.close();
+			//mBluetoothLeService.close();
+			mBluetoothLeService.disconnect();
 			break;
 		default:
 			Debug.show("OptionsItemSelected error!");
@@ -363,7 +364,8 @@ public class ServiceActivity extends Activity {
         	((ServiceListAdapter)mExpandableListView.getAdapter()).cleanObject();
         	getRSSITimer.cancel();
         }
-        mBluetoothLeService.close();
+        //mBluetoothLeService.close();
+        mBluetoothLeService.disconnect();
         return;
 	}
 
